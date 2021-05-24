@@ -7,6 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <title>예약페이지</title>
+    <style>
+        .modal{ position:absolute; width:100%; height:100%; background: rgba(0,0,0,0.8); top:0; left:0; display:none;}
+        .modal_content{
+        width:400px; height:200px;
+        background:#fff; border-radius:10px;
+        position:relative; top:50%; left:50%;
+        margin-top:-100px; margin-left:-200px;
+        text-align:center;
+        box-sizing:border-box; padding:74px 0;
+        line-height:23px; cursor:pointer;
+        }
+    </style>
 </head>
 <body>
     <div sec:authorize="!isAuthenticated()"><!--세션을 이렇게 model로 안넘겨도 그냥 바로 꺼내쓸수 있다 20210515 편리하다-->
@@ -21,22 +33,33 @@
         <a href="/logout">로그아웃</a>
     </div>
 
-    <form action="/reservationprocess" method="POST">
-    a-1<input type="radio" name="seat" value="a-1" >
-    a-2<input type="radio" name="seat" value="a-2" >
-    <br>
-    날짜: <input type="date" name="reservationday"/>
-    <br>
-    예약시간:<input type="number" name="hour" min="6" max="22">시<input type="number" name="minuite" min="0" max="59">분
-    <br>
-    사용시간:<input type="number" name="rentaltime">
-    <br>
-    인원:<input type="number" name="persons" min="1" max="4">
-    <br>
-    <input type="hidden" name="remail" value="kim80800@daum.net">
-    <input type="hidden" name="rname" value="김준영">
-    <input type="submit" value="예약">
-    </form>
+        <form action="/reservationprocess" method="POST">
+        a-1<input type="radio"   class="seat" name="seat" value="a-1" >
+        a-2<input type="radio"  class="seat" name="seat" value="a-2" >
+            <div class="modal">
+                <div class="modalcontent">
+                    날짜: <input type="date" id="reservationday" name="reservationday"/>
+                    <br>
+                    예약시간:<input type="number" id="hour" name="hour" min="6" max="22">시<input type="number" id="minuite" name="minuite" min="0" max="59">분
+                    <br>
+                    사용시간:<input type="number" id="rentaltime" name="rentaltime">
+                    <br>
+                    인원:<input type="number" id="persons" name="persons" min="1" max="4">
+                    <br>
+                    <input type="hidden" id="remail" name="remail" value="kim80800@daum.net">
+                    <input type="hidden" id="rname" name="rname" value="김준영">
+                    <input type="submit" id="button" value="예약">
+                </div>
+            </div>
+    </form><!--이렇게 내가 생각하던대로 되는데 1시간동안 삽질 했네 미친 20210524-->
 
+<script>
+    $(function(){
+        $('.seat').click(function(){
+            $('.modal').fadeIn();
+        })
+
+    })
+</script>
 </body>
 </html>
