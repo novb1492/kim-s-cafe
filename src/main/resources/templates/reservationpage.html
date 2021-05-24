@@ -37,18 +37,19 @@
         a-1<input type="radio"   class="seat" name="seat" value="a-1" >
         a-2<input type="radio"  class="seat" name="seat" value="a-2" >
             <div class="modal">
-                <div class="modalcontent">
-                    날짜: <input type="date" id="reservationday" name="reservationday"/>
+                <div class="modal_content">
+                    날짜: <input type="date"  name="reservationday"/>
                     <br>
-                    예약시간:<input type="number" id="hour" name="hour" min="6" max="22">시<input type="number" id="minuite" name="minuite" min="0" max="59">분
+                    예약시간:<input type="number"  name="hour" min="6" max="22">시<input type="number" id="minuite" name="minuite" min="0" max="59">분
                     <br>
-                    사용시간:<input type="number" id="rentaltime" name="rentaltime">
+                    사용시간:<input type="number"  name="rentaltime">
                     <br>
-                    인원:<input type="number" id="persons" name="persons" min="1" max="4">
+                    인원:<input type="number" name="persons" min="1" max="4">
                     <br>
-                    <input type="hidden" id="remail" name="remail" value="kim80800@daum.net">
-                    <input type="hidden" id="rname" name="rname" value="김준영">
-                    <input type="submit" id="button" value="예약">
+                    <input type="hidden"  name="remail" value="kim80800@daum.net">
+                    <input type="hidden"  name="rname" value="김준영">
+                    <input type="submit"  value="예약">
+                    <input type="button" id="canclebutton" value="취소">
                 </div>
             </div>
     </form><!--이렇게 내가 생각하던대로 되는데 1시간동안 삽질 했네 미친 20210524-->
@@ -57,6 +58,9 @@
     $(function(){
         $('.seat').click(function(){
             $('.modal').fadeIn();
+        })
+        $('#canclebutton').click(function(){
+            $('.modal').fadeOut();
         })
 
     })
