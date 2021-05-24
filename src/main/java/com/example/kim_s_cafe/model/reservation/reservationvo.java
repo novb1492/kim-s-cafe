@@ -18,13 +18,13 @@ import lombok.Data;
 @Entity
 public class reservationvo {
     
-
+    @Id
     @Column(name="seat",nullable = false)
     private String seat;
-    @Id
+  
     @Column(name="rid",nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)///테이블은 여기서 만들고 mysql에서 오토인크리먼트하면된다 자동으로 들어기도하네 
-    private int rid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)///테이블은 여기서 만들고 mysql에서 오토인크리먼트하면된다 자동으로 들어기도하네 주
+    private int rid;                                   //////주의 할점 아예생성시 붙히고 생성해라 안그러면  @CreationTimestamp가 난리침 20210524
 
     @Column(name="persons", nullable=false)
     private int persons;
@@ -35,7 +35,7 @@ public class reservationvo {
     @Column(name="remail",nullable = false)
     private String remail;
 
-    @Column(name = "created",nullable = false)
+    @Column(name = "created")
     @CreationTimestamp
     private Timestamp created;
 
