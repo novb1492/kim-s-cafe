@@ -50,7 +50,6 @@ public class restcontroller {
     }
     @PostMapping("/reservationprocess")
     public String reservationprocess(reservationvo reservationvo) {
-        reservationservice.log(reservationvo);
          reservationservice.insertreservation(reservationvo);
         return "no";
     }

@@ -19,6 +19,9 @@ import lombok.Data;
 public class reservationvo {
     
     @Id
+    @Column(name="seat",nullable = false)
+    private String seat;
+    
     @Column(name="rid",nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)///테이블은 여기서 만들고 mysql에서 오토인크리먼트하면된다 자동으로 들어기도하네 
     private int rid;
@@ -45,8 +48,6 @@ public class reservationvo {
     @Column(name="minuite",nullable = false)
     private int minuite;
 
-    @Column(name="seat",nullable = false)
-    private String seat;
 
     @Column(name="rentaltime",nullable = false)
     private int rentaltime;
