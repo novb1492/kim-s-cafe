@@ -11,18 +11,19 @@ public class reservationservice {
     @Autowired
     private reservationdao reservationdao;
     
-    public void log(String[] seat,String email,String name,int persons) {
-        for(int i=0;i<seat.length;i++)
-        {  
-            System.out.println("예약을 시도 하는 자리"+seat[i]);
-        }
-        System.out.println("예약을 시도하는이메일  "+email);
-        System.out.println("예약을 시도하는이름 "+name);
-        System.out.println("예약을 시도하는인원 "+persons);
-    } 
+    public void log(reservationvo reservationvo) {
     
+        System.out.println("예약을 시도 하는 자리"+reservationvo.getSeat());
+        System.out.println("예약을 시도하는이메일  "+reservationvo.getRemail());
+        System.out.println("예약을 시도하는이름 "+reservationvo.getRname());
+        System.out.println("예약을 시도하는인원 "+reservationvo.getPersons());
+        System.out.println("예약을 시도하는날짜"+reservationvo.getReservationday()); 
+        System.out.println("예약을 원하는시간"+reservationvo.getHour()+reservationvo.getMinuite()); 
+        System.out.println("대여하는시간"+reservationvo.getRentaltime()); 
+    } 
     public boolean insertreservation(reservationvo reservationvo) {
         try {
+        
             reservationdao.save(reservationvo);
             return true;
         } catch (Exception e) {

@@ -25,13 +25,18 @@
     a-1<input type="checkbox" name="seat" value="a-1" >
     a-2<input type="checkbox" name="seat" value="a-2" >
     <br>
-    날짜시간 : <input type="datetime-local" name="datetime"/>
+    날짜: <input type="date" name="reservationday"/>
+    <br>
+    예약시간:<input type="number" name="hour" min="6" max="22">시<input type="number" name="minuite" min="0" max="59">분
+    <br>
+    사용시간:<input type="number" name="rentaltime">
     <br>
     인원:<input type="number" name="persons" min="1" max="4">
     <br>
-    <input type="hidden" name="email" vaule="kim80800@daum.net">
-    <input type="hidden" name="name" vaule="김준영">
+    <input type="hidden" name="remail" value="kim80800@daum.net">
+    <input type="hidden" name="rname" value="김준영">
     <input type="submit" value="예약">
     </form>
+
 </body>
 </html>

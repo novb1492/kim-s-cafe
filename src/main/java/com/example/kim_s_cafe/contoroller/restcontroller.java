@@ -4,6 +4,7 @@ package com.example.kim_s_cafe.contoroller;
 
 import java.sql.Timestamp;
 
+import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
 
@@ -48,8 +49,9 @@ public class restcontroller {
         }
     }
     @PostMapping("/reservationprocess")
-    public String reservationprocess(@RequestParam("seat")String[] seat,@RequestParam("email")String email,@RequestParam("name")String name,@RequestParam("persons")int persons) {
-      reservationservice.log(seat, email, name,persons);
+    public String reservationprocess(reservationvo reservationvo) {
+        reservationservice.log(reservationvo);
+         reservationservice.insertreservation(reservationvo);
         return "no";
     }
   

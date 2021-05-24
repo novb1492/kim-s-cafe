@@ -37,8 +37,17 @@ public class reservationvo {
     private Timestamp created;
 
     @Column(name="reservationday",nullable = false)
-    private Timestamp reservationday;
+    private String reservationday;
+
+    @Column(name="hour",nullable = false)
+    private int hour;
+
+    @Column(name="minuite",nullable = false)
+    private int minuite;
 
     @Column(name="seat",nullable = false)
     private String seat;
+
+    @Column(name="rentaltime",nullable = false)
+    private int rentaltime;
 }
