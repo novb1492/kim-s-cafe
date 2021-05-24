@@ -1,5 +1,7 @@
 package com.example.kim_s_cafe.service;
 
+import java.util.List;
+
 import com.example.kim_s_cafe.model.reservation.reservationdao;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,9 @@ public class reservationservice {
     public boolean confirm(String seat) {
         System.out.println("예약검사"+seat);
         try {
-            //reservationvo reservationvo2=reservationdao.findbyseat(seat);
+            List<reservationvo>array=reservationdao.findbyseat(seat);
+            reservationvo reservationvo=array.get(0);///아하 이렇게 꺼내는거구나 20210524
+            System.out.println(reservationvo.getHour()+"예약시간");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -33,7 +37,7 @@ public class reservationservice {
     }
     public String insertreservation(reservationvo reservationvo) {
 
-        //boolean check=confirm(reservationvo.getSeat());
+        boolean check=confirm(reservationvo.getSeat());
         if(true)
         {
             try {

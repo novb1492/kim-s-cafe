@@ -2,7 +2,7 @@ package com.example.kim_s_cafe.contoroller;
 
 
 
-import java.sql.Timestamp;
+
 
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.service.reservationservice;
