@@ -2,6 +2,9 @@ package com.example.kim_s_cafe.contoroller;
 
 
 
+import java.sql.Timestamp;
+
+import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,8 @@ public class restcontroller {
 
     @Autowired
     private userservice userservice;
+    @Autowired
+    private reservationservice reservationservice;
     
     @PostMapping("/auth/comfirm")
     public String checkemail(@RequestParam("email")String email) {
@@ -41,6 +46,11 @@ public class restcontroller {
         else{
             return "npwd!=npwd2";
         }
+    }
+    @PostMapping("/reservationprocess")
+    public String reservationprocess(@RequestParam("seat")String[] seat,@RequestParam("email")String email,@RequestParam("name")String name,@RequestParam("persons")int persons) {
+      reservationservice.log(seat, email, name,persons);
+        return "no";
     }
   
     

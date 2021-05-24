@@ -61,6 +61,10 @@ public class controller {
     
         return "updatepwdpage";
     }
+    @GetMapping("/auth/reservationpage")
+    public String reservationpage() {
+        return "reservationpage";
+    }
 
     
 }

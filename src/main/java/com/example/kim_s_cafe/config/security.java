@@ -2,7 +2,6 @@ package com.example.kim_s_cafe.config;
 
 
 
-import com.example.kim_s_cafe.config.auth.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
