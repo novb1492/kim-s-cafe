@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmln:th="http://www.thymeleaf.org"></html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    email
+    <div sec:authentication="name"></div>
+    이름
+    <div th:text="${uservo.getName()}"></div>
+    가입일
+    <div th:text="${uservo.getCreated()}"></div>
+    <br>
+    <a href="/updatepwdpage">비밀번호 변경하러 가기</a>
+
+<br>
+</body>
+</html>
