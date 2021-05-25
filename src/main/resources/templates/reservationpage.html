@@ -36,24 +36,24 @@
         <a href="/logout">로그아웃</a>
     </div>
 
-        <!--<form action="/reservationprocess" method="POST">-->
-        a-1<input type="radio"   class="seat" name="seat" onclick="choiceseat('a-1')" >
-        a-2<input type="radio"  class="seat" name="seat" onclick="choiceseat('a-2')">
+        <!--<form action="/reservationprocess" method="POST"> 보단 이제 ajax가 훨씬 디테일 하게 컨트롤된다-->
+        a-1<input type="radio"  name="radio" class="seat" onclick="choiceseat('a-1')" ><!--radio중복선택 막는건 name을 통일하면 막힌다20210525-->
+        a-2<input type="radio" name="radio"  class="seat" onclick="choiceseat('a-2')">
             <div class="modal">
                 <div class="modal_content">
-                    날짜: <input type="date" id="reservationday" name="reservationday"/>
+                    날짜: <input type="date" id="reservationday" />
                     <br>
                     예약시간
                     <br>
-                    <input type="number" id="hour" name="hour" min="6" max="22">시
-                    <input type="hidden" id="minuite" name="minuite" value="0">
+                    <input type="number" id="hour"  min="6" max="22">시
+                    <input type="hidden" id="minuite"  value="0">
                     <br>
-                    사용시간:<input type="number" id="rentaltime"  name="rentaltime">
+                    사용시간:<input type="number" id="rentaltime" >
                     <br>
-                    인원:<input type="number" id="persons" name="persons" min="1" max="4">
+                    인원:<input type="number" id="persons"  min="1" max="4">
                     <br>
-                    <input type="hidden" id="remail" name="remail" value="kim80800@daum.net">
-                    <input type="hidden" id="rname" name="rname" value="김준영">
+                    <input type="hidden" id="remail"  value="kim80800@daum.net">
+                    <input type="hidden" id="rname"  value="김준영">
                     <input type="button" id="button"  value="예약">
                     <input type="button" id="canclebutton" value="취소">
                 </div>

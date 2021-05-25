@@ -35,8 +35,10 @@ public class security extends WebSecurityConfigurerAdapter {
        http
          .csrf().disable()///ajax사용하기 위해 토큰은 나중에
          .authorizeRequests()////요청이발생
-         .antMatchers("/","auth/**")////이 링크들은
+         .antMatchers("/","/auth/**")////이 링크들은
          .permitAll()///허용한다
+         //.anyRequest()
+         //.authenticated()
         .and()
             .formLogin()////로그인 발생시
             .loginPage("/auth/loginpage")///로그인페이지 지정
