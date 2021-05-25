@@ -47,7 +47,6 @@ public class userservice {
         
         return false;
     }
-
     public uservo getinfor() {
         Object principal=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserDetails details=(UserDetails)principal;

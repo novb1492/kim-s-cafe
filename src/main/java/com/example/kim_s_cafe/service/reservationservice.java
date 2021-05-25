@@ -1,6 +1,9 @@
 package com.example.kim_s_cafe.service;
 
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.example.kim_s_cafe.model.reservation.reservationdao;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
@@ -23,26 +26,40 @@ public class reservationservice {
         System.out.println("예약을 원하는시간"+reservationvo.getHour()+reservationvo.getMinuite()); 
         System.out.println("대여하는시간"+reservationvo.getRentaltime()); 
     } 
-    public boolean confirm(String seat) {
+    public ArrayList<Integer> reservationconfirm(String seat) {
         System.out.println("예약검사"+seat);
+        ArrayList<Integer>arrayList=new ArrayList<>();
         try {
             List<reservationvo>array=reservationdao.findbyseat(seat);
-            reservationvo reservationvo=array.get(0);///아하 이렇게 꺼내는거구나 20210524
-            System.out.println(reservationvo.getHour()+"예약시간");
+            for(int i=0;i<array.size();i++)
+            {
+                reservationvo reservationvo=array.get(i);///아하 이렇게 꺼내는거구나 20210524
+                System.out.println(reservationvo.getHour()+"예약시간");
+                System.out.println(reservationvo.getRentaltime()+"사용시간");
+                arrayList.add(reservationvo.getHour());
+                arrayList.add(reservationvo.getHour()+reservationvo.getRentaltime());
+            }
+          for(int i=0; i<arrayList.size();i++)
+          {
+              if(i%2==0)
+              {
+                System.out.println(arrayList.get(i)+"예약시간");
+              }
+              else
+              {
+                System.out.println(arrayList.get(i)+"종료시간");
+              }
+          }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return false;
+        return arrayList;
     }
     public String insertreservation(reservationvo reservationvo) {
-
-        boolean check=confirm(reservationvo.getSeat());
         if(true)
         {
             try {
-            
-   
                 reservationdao.save(reservationvo);
                 return "yes";
             } catch (Exception e) {

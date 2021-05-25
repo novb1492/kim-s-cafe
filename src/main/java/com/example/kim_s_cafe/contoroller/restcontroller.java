@@ -4,6 +4,8 @@ package com.example.kim_s_cafe.contoroller;
 
 
 
+import java.util.ArrayList;
+
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
@@ -47,6 +49,12 @@ public class restcontroller {
         else{
             return "npwd!=npwd2";
         }
+    }
+    @PostMapping("/reservationconfrim")
+    public ArrayList<Integer> reservationconfirm(@RequestParam("seat")String seat) {
+        seat="a-1";
+       ArrayList<Integer>arrayList=reservationservice.reservationconfirm(seat);
+        return arrayList;
     }
     @PostMapping("/reservationprocess")
     public String reservationprocess(reservationvo reservationvo) {
