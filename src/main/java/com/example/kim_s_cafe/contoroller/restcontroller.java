@@ -51,10 +51,10 @@ public class restcontroller {
         }
     }
     @PostMapping("/reservationconfrim")
-    public ArrayList<Integer> reservationconfirm(@RequestParam("seat")String seat) {
+    public int reservationconfirm(@RequestParam("seat")String seat) {
         seat="a-1";
        ArrayList<Integer>arrayList=reservationservice.reservationconfirm(seat);
-        return arrayList;
+        return 1;
     }
     @PostMapping("/reservationprocess")
     public String reservationprocess(reservationvo reservationvo) {
