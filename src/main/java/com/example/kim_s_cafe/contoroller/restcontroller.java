@@ -56,22 +56,23 @@ public class restcontroller {
         }
     }
     @PostMapping("/reservationconfrim")
-    public int reservationconfirm(@RequestParam("seat")String seat) {
-        seat="a-1";
-       ArrayList<Integer>arrayList=reservationservice.reservationconfirm(seat);
-        return 1;
+    public List<Integer> reservationconfirm(@RequestParam("seat")String seat) {
+        List<Integer>array=reservationservice.reservationconfirm(seat);
+        return array;
     }
     @PostMapping("/reservationprocess")
     public boolean reservationprocess(reservationvo reservationvo,@RequestParam(value = "requesthour[]")List<Integer> requesthour) { ///checkbox로 받을때 value = "파라미터이름[]" 과 List로만 해야한다 20210526
-       
-        reservationservice.log(reservationvo,requesthour);
-        for(int i=0;i<requesthour.size();i++){
-            reservationvo.setRequesthour(requesthour.get(i));
+   
+           reservationservice.log(reservationvo,requesthour);
+           
+           reservationvo.setRequesthour(requesthour.get(0));
            boolean yorn=reservationservice.insertreservation(reservationvo);
+           reservationvo.setRequesthour(requesthour.get(1));
+           yorn=reservationservice.insertreservation(reservationvo);
            if(yorn){
                return no;
            }
-        }
+        
         
         return yes;
     }

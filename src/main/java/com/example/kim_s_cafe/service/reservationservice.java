@@ -26,40 +26,29 @@ public class reservationservice {
             System.out.println("예약을 시도하는이메일 "+reservationvo.getRemail());
             System.out.println("예약을 시도하는이름 "+reservationvo.getRname());
     } 
-    public ArrayList<Integer> reservationconfirm(String seat) {
-        System.out.println("예약검사"+seat);
-        ArrayList<Integer>arrayList=new ArrayList<>();
+    public List<Integer> reservationconfirm(String seat) {
+
         try {
-            List<reservationvo>array=reservationdao.findbyseat(seat);
+            List<Integer>array=reservationdao.findbyseat(seat);
             for(int i=0;i<array.size();i++)
             {
-                reservationvo reservationvo=array.get(i);///아하 이렇게 꺼내는거구나 20210524
-                System.out.println(reservationvo.getRequesthour()+"예약시간");
-               //arrayList.add(reservationvo.getHour());
-               // arrayList.add(reservationvo.getHour()+reservationvo.getRentaltime());
+                System.out.println(array.get(i)+"이미 예약되어있는시간");
             }
-          for(int i=0; i<arrayList.size();i++)
-          {
-              if(i%2==0)
-              {
-                System.out.println(arrayList.get(i)+"예약시간");
-              }
-              else
-              {
-                System.out.println(arrayList.get(i)+"종료시간");
-              }
-          }
-            
+            return array;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return arrayList;
+        return null;
     }
     public boolean insertreservation(reservationvo reservationvo) {
       
             try {
-                reservationdao.save(reservationvo);
-                //int a=reservationdao.onlyinsert(reservationvo.getRemail(), reservationvo.getRequesthour(), reservationvo.getRname(), reservationvo.getSeat());
+
+      
+                    reservationdao.save(reservationvo);
+                
+
+                //reservationdao.insertonly(reservationvo.getCreated(),reservationvo.getRemail(), reservationvo.getRequesthour(), reservationvo.getRname(), reservationvo.getSeat());
                 return yes;
             } catch (Exception e) {
                 e.printStackTrace();      

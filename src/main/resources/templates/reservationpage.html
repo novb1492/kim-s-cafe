@@ -56,7 +56,7 @@
 <script>
     var seat;
     var requesthour = []; // key 값을 담을 배열
-
+    var alreadytime=[];
     function choiceseat(value)
     {
         seat=value;
@@ -64,9 +64,23 @@
     $(function(){
         $('.seat').click(function(){
             $('.modal').fadeIn();
-        })
-        $('.requesthour').ready(function(){
-            alert('ready');
+            $.ajax({
+                type:"post",
+                url:"/reservationconfrim",
+            data:{
+               "seat":seat,
+            },
+            success:function(data){
+                if(data!=null)
+                {
+                    alreadytime=data;
+                }
+                else
+                {
+                    alert('죄송합니다 예약에 실패 했습니다 예약이 다 찾거나 일시적 오류입니다');
+                }  
+                }
+            })
         })
         $('#button').click(function(){
             $('input[name="requesthour"]:checkbox:checked').each(function(){///check박스 값 가져오려면 name을 넣어주면돤다20210526
