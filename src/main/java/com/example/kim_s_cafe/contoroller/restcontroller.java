@@ -61,35 +61,21 @@ public class restcontroller {
         return array;
     }
     @PostMapping("/reservationprocess")
-    public boolean reservationprocess(reservationvo reservationvo,@RequestParam(value = "requesthour2[]")List<Integer> requesthour2) { ///checkbox로 받을때 value = "파라미터이름[]" 과 List로만 해야한다 20210526
-    boolean yorn=false;
-            for(int i=0;i<requesthour2.size();i++){
-
-                reservationvo.setRequesthour(requesthour2.get(i));
-                yorn=reservationservice.insertreservation(reservationvo);
-            }
-           reservationservice.log(reservationvo,requesthour2);
-            reservationvo reservationvo2=new reservationvo();
-           reservationvo reservationvo3=new reservationvo();
-                 reservationvo2.setRequesthour(requesthour2.get(0));
+    public boolean reservationprocess(reservationvo reservationvo,@RequestParam(value = "requesthour[]")List<Integer> requesthour) { ///checkbox로 받을때 value = "파라미터이름[]" 과 List로만 해야한다 20210526
+            
+            reservationservice.log(reservationvo,requesthour);        
+            for(int i=0;i<requesthour.size();i++){
+                reservationvo reservationvo2=new reservationvo();///20210528그래준영아 객체를 비워줘야지.. 안그러면 update만 되잖아..
+                reservationvo2.setRequesthour(requesthour.get(i));
                  reservationvo2.setCreated(reservationvo.getCreated());
                  reservationvo2.setRemail(reservationvo.getRemail());
                  reservationvo2.setRname(reservationvo.getRname());
                  reservationvo2.setSeat(reservationvo.getSeat());
-                 yorn=reservationservice.insertreservation(reservationvo2);
-                 
-                 reservationvo3.setRequesthour(requesthour2.get(1));
-                 reservationvo3.setCreated(reservationvo.getCreated());
-                 reservationvo3.setRemail(reservationvo.getRemail());
-                 reservationvo3.setRname(reservationvo.getRname());
-                 reservationvo3.setSeat(reservationvo.getSeat());
-                 reservationservice.insertreservation(reservationvo3);
+                 boolean yorn=reservationservice.insertreservation(reservationvo2);
                 if(yorn){
                     return no;
                 }
-             
-           
-          
+            }   
         return yes;
     }
   
