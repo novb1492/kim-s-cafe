@@ -42,13 +42,8 @@ public class reservationservice {
     }
     public boolean insertreservation(reservationvo reservationvo) {
       
-            try {
-
-      
-                    reservationdao.save(reservationvo);
-                
-
-                //reservationdao.insertonly(reservationvo.getCreated(),reservationvo.getRemail(), reservationvo.getRequesthour(), reservationvo.getRname(), reservationvo.getSeat());
+            try {   
+                reservationdao.save(reservationvo);            
                 return yes;
             } catch (Exception e) {
                 e.printStackTrace();      

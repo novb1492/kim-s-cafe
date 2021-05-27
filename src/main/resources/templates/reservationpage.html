@@ -73,7 +73,7 @@
             success:function(data){
                 if(data!=null)
                 {
-                    alreadytime=data;
+                    alreadytime=data;//이미 예약되어있는 시간 배열로 받음
                 }
                 else
                 {
@@ -91,7 +91,7 @@
                 url:"/reservationprocess",
             data:{
                "seat":seat,
-               "requesthour":requesthour,
+               "requesthour2":requesthour,
                "remail":$('#remail').val(),
                "rname":$('#rname').val()
             },
