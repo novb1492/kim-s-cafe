@@ -61,13 +61,13 @@
     {
         seat=value;
     }
- 
-
     $(function(){
         $('.seat').click(function(){
             $('.modal').fadeIn();
         })
-        
+        $('.requesthour').ready(function(){
+            alert('ready');
+        })
         $('#button').click(function(){
             $('input[name="requesthour"]:checkbox:checked').each(function(){///check박스 값 가져오려면 name을 넣어주면돤다20210526
                 requesthour.push($(this).val());
@@ -81,6 +81,17 @@
                "remail":$('#remail').val(),
                "rname":$('#rname').val()
             },
+            success:function(data){
+                if(data)
+                {
+                    alert('예약성공'); 
+                    $('.modal').fadeOut();
+                }
+                else
+                {
+                    alert('죄송합니다 예약에 실패 했습니다 예약이 다 찾거나 일시적 오류입니다');
+                }  
+                }
             })
         })
         $('#canclebutton').click(function(){

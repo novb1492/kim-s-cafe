@@ -5,16 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.kim_s_cafe.model.reservation.reservationdao;
-import com.example.kim_s_cafe.model.reservation.reservation;
+import com.example.kim_s_cafe.model.reservation.reservationvo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class reservationservice {
+    private final boolean yes=false;
+    private final boolean no=true;
+
     @Autowired
     private reservationdao reservationdao;
     
-    public void log(reservation reservationvo,List<Integer> requesthour) {
+    public void log(reservationvo reservationvo,List<Integer> requesthour) {
             for(int i=0;i<requesthour.size();i++)
             {
                 System.out.println("예약을 시도하는시간"+requesthour.get(i));  
@@ -27,10 +30,10 @@ public class reservationservice {
         System.out.println("예약검사"+seat);
         ArrayList<Integer>arrayList=new ArrayList<>();
         try {
-            List<reservation>array=reservationdao.findbyseat(seat);
+            List<reservationvo>array=reservationdao.findbyseat(seat);
             for(int i=0;i<array.size();i++)
             {
-                reservation reservationvo=array.get(i);///아하 이렇게 꺼내는거구나 20210524
+                reservationvo reservationvo=array.get(i);///아하 이렇게 꺼내는거구나 20210524
                 System.out.println(reservationvo.getRequesthour()+"예약시간");
                //arrayList.add(reservationvo.getHour());
                // arrayList.add(reservationvo.getHour()+reservationvo.getRentaltime());
@@ -52,18 +55,16 @@ public class reservationservice {
         }
         return arrayList;
     }
-    public String insertreservation(reservation reservationvo) {
-        if(true)
-        {
+    public boolean insertreservation(reservationvo reservationvo) {
+      
             try {
-                int a=reservationdao.onlyinsert(reservationvo.getRemail(), reservationvo.getRequesthour(), reservationvo.getRname(), reservationvo.getSeat());
-                return "yes";
+                reservationdao.save(reservationvo);
+                //int a=reservationdao.onlyinsert(reservationvo.getRemail(), reservationvo.getRequesthour(), reservationvo.getRname(), reservationvo.getSeat());
+                return yes;
             } catch (Exception e) {
-                e.printStackTrace();
-                return "error";
+                e.printStackTrace();      
             }
-        }
-        return "no";
+            return no;  
     }
  
     

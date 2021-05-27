@@ -5,9 +5,10 @@ package com.example.kim_s_cafe.contoroller;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.example.kim_s_cafe.model.reservation.reservation;
+import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
 
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class restcontroller {
+
+    private final boolean yes=true;
+    private final boolean no=false;
 
     @Autowired
     private userservice userservice;
@@ -58,14 +62,18 @@ public class restcontroller {
         return 1;
     }
     @PostMapping("/reservationprocess")
-    public String reservationprocess(reservation reservationvo,@RequestParam(value = "requesthour[]")List<Integer> requesthour) { ///checkbox로 받을때 value = "파라미터이름[]" 과 List로만 해야한다 20210526
+    public boolean reservationprocess(reservationvo reservationvo,@RequestParam(value = "requesthour[]")List<Integer> requesthour) { ///checkbox로 받을때 value = "파라미터이름[]" 과 List로만 해야한다 20210526
        
         reservationservice.log(reservationvo,requesthour);
         for(int i=0;i<requesthour.size();i++){
-        reservationvo.setRequesthour(requesthour.get(i));
-         reservationservice.insertreservation(reservationvo);
+            reservationvo.setRequesthour(requesthour.get(i));
+           boolean yorn=reservationservice.insertreservation(reservationvo);
+           if(yorn){
+               return no;
+           }
         }
-        return "no";
+        
+        return yes;
     }
   
     
