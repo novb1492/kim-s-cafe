@@ -24,7 +24,7 @@ public class reservationservice {
     public boolean deletereservation(int rid) {
  try {
         reservationdao.deleteById(rid);
-    return yes;
+        return yes;
  } catch (Exception e) {
      e.printStackTrace();
  }
