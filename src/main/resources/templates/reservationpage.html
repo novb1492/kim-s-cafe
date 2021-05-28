@@ -43,7 +43,7 @@
                     <br>
                     예약시간
                     <br>
-                       <div class="#requesthourdiv"></div>
+                       <div id="requesthourdiv"></div>
                     <br>
                     <input type="hidden" id="remail"  value="kim80800@daum.net">
                     <input type="hidden" id="rname"  value="김준영">
@@ -80,10 +80,9 @@
                 if(data!=null){
 
                     alreadytime=data;//예약가능한 시간을 배열로 받음
-                    var html="<input type='checkbox' class='requesthour' name='requesthour' value=''>";
                     for(var i=0;i<alreadytime.length;i++){ 
                         var ii=alreadytime[i]+1;
-                         $('#requesthourdiv').append(html);
+                         $('#requesthourdiv').append("<input type='checkbox' class='requesthour' name='requesthour' value=''>"+alreadytime[i]+"시~"+ii+"시");
                         $('input[name=requesthour]').attr('value',alreadytime[i]);
                     }  
                 }
