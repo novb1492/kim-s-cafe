@@ -7,6 +7,7 @@ package com.example.kim_s_cafe.contoroller;
 
 import java.util.List;
 
+import com.example.kim_s_cafe.model.reservation.reservationdao;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
@@ -54,12 +55,12 @@ public class restcontroller {
             return "npwd!=npwd2";
         }
     }
-    @PostMapping("/reservationconfrim")
+    @PostMapping("reservationconfrim")
     public List<Integer> reservationconfirm(@RequestParam("seat")String seat) {
         List<Integer>array=reservationservice.reservationconfirm(seat);
         return array;
     }
-    @PostMapping("/reservationprocess")
+    @PostMapping("reservationprocess")
     public boolean reservationprocess(reservationvo reservationvo,@RequestParam(value = "requesthour[]")List<Integer> requesthour) { ///checkbox로 받을때 value = "파라미터이름[]" 과 List로만 해야한다 20210526
             
             reservationservice.log(reservationvo,requesthour);        
@@ -69,9 +70,10 @@ public class restcontroller {
             }
         return yes;
     }
-    @PostMapping("/reservationcancleprocess")
-    public boolean reservationcancleprocess(@RequestParam("requesthour")int requesthour,@RequestParam("seat")String seat,@RequestParam("remail")String reamil) {
-            
+    @PostMapping("reservationcancleprocess")
+    public boolean reservationcancleprocess(@RequestParam("rid")int rid) {
+    System.out.println("test중");
+    reservationservice.deletereservation(rid);
    
         return no;
     }

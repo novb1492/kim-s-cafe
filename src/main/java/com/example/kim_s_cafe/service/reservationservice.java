@@ -21,6 +21,17 @@ public class reservationservice {
     @Autowired
     private reservationdao reservationdao;
     
+    public boolean deletereservation(int rid) {
+ try {
+        reservationdao.deleteById(rid);
+    return yes;
+ } catch (Exception e) {
+     e.printStackTrace();
+ }
+     
+        return no;
+    }
+
     public List<reservationvo> findreservation(String email) {
         try {
             List<reservationvo>array=reservationdao.findbyemail(email);

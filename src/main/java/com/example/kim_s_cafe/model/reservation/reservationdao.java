@@ -14,6 +14,8 @@ public interface reservationdao extends JpaRepository<reservationvo,Integer> {
     List<Integer>findbyseat(String seat);
 
     @Query(value = "select * from reservation where remail=?1 order by requesthour desc",nativeQuery = true)
-    List<reservationvo>findbyemail(String email);
+    List<reservationvo>findbyemail(String remail);
+
+
 
 }
