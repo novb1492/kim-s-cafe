@@ -72,7 +72,7 @@ public class restcontroller {
     }
     @PostMapping("reservationcancleprocess")
     public boolean reservationcancleprocess(@RequestParam("rid")int rid) {
-    System.out.println("test중");
+    System.out.println("test중"+rid);
     reservationservice.deletereservation(rid);
    
         return no;
