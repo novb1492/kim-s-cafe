@@ -36,9 +36,9 @@
                 <td >[[${array.getRemail}]]</td>
                 <td>[[${array.getCreated}]]</td>
                 <td>
-                    <input type="hidden" id="rid"  th:value="${array.getRid}">
-                    <input type="button" id="cancle" value="예약취소">
-                    <input type="button" id="update" value="예약변경">
+                    <input type="hidden" class="rid"  th:value="${array.getRid}">
+                    <input type="button" class="cancle" value="예약취소">
+                    <input type="button" class="update" value="예약변경">
                 </td>
             </tr>				     
         </table>
@@ -46,12 +46,12 @@
 <div id="test"></div>
 <script>
 $(function(){
-      $('#cancle').click(function(){
+      $('.cancle').click(function(){
           $.ajax({
             type:"post",
             url:"/reservationcancleprocess",
             data:{
-               "rid":$('#rid').val(),
+               "rid":$('.rid').val(),
             },
             success:function(data){
                 if(data==true){
