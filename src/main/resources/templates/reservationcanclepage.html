@@ -29,14 +29,35 @@
             <th>예약일자</th>
         </tr>
         <tr th:each="array:${array}">
-            <td>[[${array.getRequesthour}]]시~[[${array.getRequesthour+1}]]시</td><!--오 연산도 된다20210528-->
-            <td>[[${array.getSeat}]]</td>   
-            <td>[[${array.getRemail}]]</td>
+            <td id="requesthour" th:value="${array.getRequesthour}">[[${array.getRequesthour}]]시~[[${array.getRequesthour+1}]]시</td><!--오 연산도 된다20210528-->
+            <td id="seat" th:value="${array.getSeat}">[[${array.getSeat}]]</td>   
+            <td id="remail" th:value="${array.getRemail}">[[${array.getRemail}]]</td>
             <td>[[${array.getCreated}]]</td>
-            <td><input type="button" id="cancle" value="예약취소"></td>
+            <td>
+                <input type="button" id="cancle" value="예약취소">
+                <input type="button" id="update" value="예약변경">
+            </td>
         </tr>				     
     </table>
 
+<script>
+ $(function()
+  {
+      $('#cancle').click(function(){
+         $.ajax({
+            type:"post",
+            url:"/reservationcancleprocess",
+            data:{
+               "requesthour":$('#requesthour').val(),
+               "seat":$('#seat').val(),
+               "remail":$('#remail').val(),
+            },
+            success:function(data){
 
+            }
+         })
+      })
+  })
+</script>
 </body>
 </html>

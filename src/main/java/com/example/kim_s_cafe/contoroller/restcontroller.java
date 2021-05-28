@@ -69,6 +69,12 @@ public class restcontroller {
             }
         return yes;
     }
+    @PostMapping("/reservationcancleprocess")
+    public boolean reservationcancleprocess(@RequestParam("requesthour")int requesthour,@RequestParam("seat")String seat,@RequestParam("remail")String reamil) {
+            
+   
+        return no;
+    }
   
     
 }
