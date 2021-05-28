@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class reservationservice {
+
     private final boolean yes=false;
     private final boolean no=true;
+    private final byte opentime=6;
+    private final byte endtime=22;
 
     @Autowired
     private reservationdao reservationdao;
@@ -26,15 +29,29 @@ public class reservationservice {
             System.out.println("예약을 시도하는이메일 "+reservationvo.getRemail());
             System.out.println("예약을 시도하는이름 "+reservationvo.getRname());
     } 
+    
     public List<Integer> reservationconfirm(String seat) {
-
+        List<Integer>array2=new ArrayList<>();
         try {
+
             List<Integer>array=reservationdao.findbyseat(seat);
-            for(int i=0;i<array.size();i++)
-            {
-                System.out.println(array.get(i)+"이미 예약되어있는시간");
-            }
-            return array;
+
+            for(int ii=opentime;ii<=endtime;ii++){
+                for(int i=0;i<array.size();i++){
+                        if(ii==array.get(i)){
+                            System.out.println(ii+"이미 예약"); 
+                            break;   
+                        }
+                        else{  
+                            if(i==array.size()-1){
+                                System.out.println(ii+"자바스크립트"); 
+                                array2.add(ii);
+                            }
+                        }
+                  
+                }
+            } 
+            return array2;
         } catch (Exception e) {
             e.printStackTrace();
         }

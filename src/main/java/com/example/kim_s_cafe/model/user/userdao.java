@@ -1,5 +1,5 @@
 package com.example.kim_s_cafe.model.user;
-import java.sql.Timestamp;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
