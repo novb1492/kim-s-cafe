@@ -61,11 +61,6 @@
     function choiceseat(value){
         seat=value;
     }
-    function makecheckbox(alreadytime,ii){
-        $('.requesthourdiv').html("<input type='checkbox' class='requesthour' name='requesthour' value=''>"+alreadytime+"시~"+ii+"시");
-        $('input[name=requesthour]').attr('value',alreadytime);
-    }
-
     $(function(){
         $('.seat').click(function(){
             $('.modal').fadeIn();
@@ -83,10 +78,11 @@
                     for(var i=0;i<alreadytime.length;i++){ 
                         var ii=alreadytime[i]+1;
                          $('#requesthourdiv').append("<input type='checkbox' class='requesthour' name='requesthour' value='"+alreadytime[i]+"'>"+alreadytime[i]+"시~"+ii+"시");
-                    }  
+                    }  ///반복문 으로 input을 만들때는 append하면된다 20210528
                 }
                 else{
                     alert('죄송합니다 예약에 실패 했습니다 예약이 다 찾거나 일시적 오류입니다');
+                    out();
                 }  
             }
             })
@@ -94,7 +90,7 @@
                  
         })
         $('#button').click(function(){
-            $('input[name="requesthour"]:checkbox:checked').each(function(){///check박스 값 가져오려면 name을 넣어주면돤다20210526
+            $('input[name="requesthour"]:checkbox:checked').each(function(){///check박스 값 가져오려면 name값 지정해 넣어주면돤다20210526
                 requesthour.push($(this).val());
             });
             $.ajax({
@@ -110,20 +106,25 @@
                 if(data)
                 {
                     alert('예약성공'); 
-                    $('.modal').fadeOut();
+                    out();
                 }
                 else
                 {
                     alert('죄송합니다 예약에 실패 했습니다 예약이 다 찾거나 일시적 오류입니다');
+                    out();
                 }  
                 }
             })
         })
         $('#canclebutton').click(function(){
-            $('.modal').fadeOut();
+           out();
         })
 
     })
+    function out(){
+        $('.modal').fadeOut();
+            $( '#requesthourdiv' ).empty();///이게 없으면 체크박스가 계속 생긴다 20210528
+    }
 </script>
 </body>
 </html>
