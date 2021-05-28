@@ -21,5 +21,22 @@
         <a href="/mypage">마이페이지</a>
         <a href="/logout">로그아웃</a>
     </div>
+    <table>				
+        <tr>
+            <th>예약시간</th>
+            <th>예약자리</th>
+            <th>예약자이메일</th> 
+            <th>예약일자</th>
+        </tr>
+        <tr th:each="array:${array}">
+            <td>[[${array.getRequesthour}]]시~[[${array.getRequesthour+1}]]시</td><!--오 연산도 된다20210528-->
+            <td>[[${array.getSeat}]]</td>   
+            <td>[[${array.getRemail}]]</td>
+            <td>[[${array.getCreated}]]</td>
+            <td><input type="button" id="cancle" value="예약취소"></td>
+        </tr>				     
+    </table>
+
+
 </body>
 </html>

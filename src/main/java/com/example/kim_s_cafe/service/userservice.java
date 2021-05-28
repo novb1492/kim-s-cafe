@@ -47,11 +47,14 @@ public class userservice {
         
         return false;
     }
-    public uservo getinfor() {
+    public String getemail() {
         Object principal=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserDetails details=(UserDetails)principal;
         System.out.println(details.getUsername()+"조회이메일");
-        uservo uservo=userdao.findById(details.getUsername()).orElseThrow();
+        return details.getUsername();
+    }
+    public uservo getinfor(String email) {
+        uservo uservo=userdao.findById(email).orElseThrow();
         System.out.println(uservo.getName()+"다녀왔니");
         return uservo;
     }

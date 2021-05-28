@@ -21,6 +21,16 @@ public class reservationservice {
     @Autowired
     private reservationdao reservationdao;
     
+    public List<reservationvo> findreservation(String email) {
+        try {
+            List<reservationvo>array=reservationdao.findbyemail(email);
+            return array;  
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+        return null;
+    }
+
     public void log(reservationvo reservationvo,List<Integer> requesthour) {
             for(int i=0;i<requesthour.size();i++)
             {
@@ -29,8 +39,7 @@ public class reservationservice {
             System.out.println("예약을 시도 하는 자리"+reservationvo.getSeat());
             System.out.println("예약을 시도하는이메일 "+reservationvo.getRemail());
             System.out.println("예약을 시도하는이름 "+reservationvo.getRname());
-    } 
-    
+    }  
     public List<Integer> reservationconfirm(String seat) {
 
         List<Integer>array2=new ArrayList<>();

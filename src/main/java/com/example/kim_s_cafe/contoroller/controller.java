@@ -3,7 +3,11 @@ package com.example.kim_s_cafe.contoroller;
 
 
 
+import java.util.List;
+
+import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.model.user.uservo;
+import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,8 @@ public class controller {
 
     @Autowired
     private userservice userservice;
+    @Autowired
+    private reservationservice reservationservice;
  
 
     @PostMapping("/auth/joinprocess")
@@ -52,7 +58,8 @@ public class controller {
     @GetMapping("mypage")
     public String mypage(Model model) {
     
-        uservo uservo=userservice.getinfor();
+        String email=userservice.getemail();
+        uservo uservo=userservice.getinfor(email);
         model.addAttribute("uservo", uservo);
         return "mypage";
     }
@@ -66,7 +73,11 @@ public class controller {
         return "reservationpage";
     }
     @GetMapping("/reservationcanclepage")
-    public String reservationcanclepage() {
+    public String reservationcanclepage(Model model) {
+
+        String email=userservice.getemail();
+        List<reservationvo>array=reservationservice.findreservation(email);
+        model.addAttribute("array",array);
         return "reservationcanclepage";
     }
 
