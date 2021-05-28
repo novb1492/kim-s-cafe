@@ -65,6 +65,10 @@ public class controller {
     public String reservationpage() {
         return "reservationpage";
     }
+    @GetMapping("/reservationcanclepage")
+    public String reservationcanclepage() {
+        return "reservationcanclepage";
+    }
 
     
 }
