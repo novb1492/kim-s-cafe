@@ -82,8 +82,7 @@
                     alreadytime=data;//예약가능한 시간을 배열로 받음
                     for(var i=0;i<alreadytime.length;i++){ 
                         var ii=alreadytime[i]+1;
-                         $('#requesthourdiv').append("<input type='checkbox' class='requesthour' name='requesthour' value=''>"+alreadytime[i]+"시~"+ii+"시");
-                        $('input[name=requesthour]').attr('value',alreadytime[i]);
+                         $('#requesthourdiv').append("<input type='checkbox' class='requesthour' name='requesthour' value='"+alreadytime[i]+"'>"+alreadytime[i]+"시~"+ii+"시");
                     }  
                 }
                 else{
