@@ -3,10 +3,10 @@ function setup() {
     frameRate(framerate);
     let canvas=createCanvas(displayWidth,windowHeight);
     canvas.parent('canvas');
- 
+    background('gray'); 
   }
 
 function draw() 
 {  
-     background('gray'); 
+    
 }
