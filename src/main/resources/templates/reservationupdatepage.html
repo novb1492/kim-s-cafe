@@ -46,7 +46,7 @@
     var seat;
     var requesthour = []; // key 값을 담을 배열
     var alreadytime=[];
-
+    var length;
     function choiceseat(value){
         seat=value;
     }
@@ -74,40 +74,44 @@
                     out();
                 }  
             }
-            })
-
-                 
+            })      
         })
         $('#button').click(function(){
+
             $('input[name="requesthour"]:checkbox:checked').each(function(){///check박스 값 가져오려면 name값 지정해 넣어주면돤다20210526
                 requesthour.push($(this).val());
             });
-            $.ajax({
-                type:"post",
-                url:"/reservationupdateprocess",
-            data:{
-               "seat":seat,
-               "requesthour":requesthour,
-               "remail":$('#remail').val(),
-               "rname":$('#rname').val(),
-               "rid":$('#rid').val(),
-               "created":$('#created').val(),
-            },
-            success:function(data){
-                if(data){
-                    alert('변경성공'); 
-                    out();
-                }else{
-                    alert('죄송합니다 예약에 실패 했습니다 예약이 다 찾거나 일시적 오류입니다');
-                    out();
-                }  
-                }
-            })
+            if(requesthour.length==1){
+                    $.ajax({
+                    type:"post",
+                    url:"/reservationupdateprocess",
+                data:{
+                "seat":seat,
+                "requesthour":requesthour,
+                "remail":$('#remail').val(),
+                "rname":$('#rname').val(),
+                "rid":$('#rid').val(),
+                "created":$('#created').val(),
+                },
+                success:function(data){
+                    if(data){
+                        alert('변경성공'); 
+                        out();
+                    }else{
+                        alert('죄송합니다 예약에 실패 했습니다 예약이 다 찾거나 일시적 오류입니다');
+                        out();
+                    }  
+                    }
+                })
+            }else{
+                alert("한개만 선택해 주세요");
+                requesthour=[];///이게 없으면 이전 체크박스  사이즈 초기화가 안된다 20210529
+            }
+           
         })
         $('#canclebutton').click(function(){
            out();
         })
-
     })
     function out(){
         $('.modal').fadeOut();

@@ -80,10 +80,15 @@ public class restcontroller {
     }
     @PostMapping("reservationupdateprocess")
     public boolean reservationupdateprocess(reservationvo reservationvo,@RequestParam(value = "requesthour[]")List<Integer> requesthour) {
-        System.out.println("test"+requesthour.get(0));
-        reservationvo.setRequesthour(requesthour.get(0));
-        reservationservice.reservationupdate(reservationvo);
-        return no;  
+        
+        System.out.println("변경시도");
+        reservationservice.log(reservationvo, requesthour);
+        boolean yorn=reservationservice.reservationupdate(reservationvo);
+        if(yorn){
+            return no;
+        }else{
+            return yes;    
+        } 
     }
    
   
