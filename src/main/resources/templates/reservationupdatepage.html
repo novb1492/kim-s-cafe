@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmln:th="http://www.thymeleaf.org"></html>
+<html lang="en" xmln:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -77,14 +76,13 @@
             })      
         })
         $('#button').click(function(){
-
             $('input[name="requesthour"]:checkbox:checked').each(function(){///check박스 값 가져오려면 name값 지정해 넣어주면돤다20210526
                 requesthour.push($(this).val());
             });
             if(requesthour.length==1){
-                    $.ajax({
-                    type:"post",
-                    url:"/reservationupdateprocess",
+                $.ajax({
+                type:"post",
+                url:"/reservationupdateprocess",
                 data:{
                 "seat":seat,
                 "requesthour":requesthour,
@@ -93,16 +91,16 @@
                 "rid":$('#rid').val(),
                 "created":$('#created').val(),
                 },
-                success:function(data){
-                    if(data){
-                        alert('변경성공'); 
-                        out();
-                    }else{
-                        alert('죄송합니다 예약에 실패 했습니다 예약이 다 찾거나 일시적 오류입니다');
-                        out();
-                    }  
-                    }
-                })
+                    success:function(data){
+                        if(data){
+                            alert('변경성공'); 
+                            out();
+                        }else{
+                            alert('죄송합니다 예약에 실패 했습니다 예약이 다 찾거나 일시적 오류입니다');
+                            out();
+                        }  
+                        }
+                    })
             }else{
                 alert("한개만 선택해 주세요");
                 requesthour=[];///이게 없으면 이전 체크박스  사이즈 초기화가 안된다 20210529
