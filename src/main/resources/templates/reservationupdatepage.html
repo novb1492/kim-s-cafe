@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예약변경</title>
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <title>예약페이지</title>
     <style>
@@ -14,13 +15,6 @@
     </style>
 </head>
 <body>
-    <a href="/auth/index">홈</a>
-    <div sec:authorize="!isAuthenticated()"><!--세션을 이렇게 model로 안넘겨도 그냥 바로 꺼내쓸수 있다 20210515 편리하다-->
-        예약하시려면 로그인 부탁드립니다
-        <br>
-        <a href="/auth/joinpage">회원가입</a>
-        <a href="/auth/loginpage">로그인</a>
-    </div>
     <div sec:authorize="isAuthenticated()"><!--else문을 모르겠다-->
         <div sec:authentication="name" ></div>
         <a href="/mypage">마이페이지</a>
@@ -39,6 +33,8 @@
                        <div id="requesthourdiv"></div>
                     <br>
                     <input type="hidden" id="remail"  th:value="${#authentication.name}"><!--#붙히고 꺼내쓰면된다!20210528-->
+                    <input type="hidden" id="rid" th:value="${reservationvo.getRid}">
+                    <input type="hidden" id="created" th:value="${reservationvo.getCreated}">
                     <input type="hidden" id="rname"  value="김준영">
                     <input type="button" id="button"  value="예약">
                     <input type="button" id="canclebutton" value="취소">
@@ -88,16 +84,18 @@
             });
             $.ajax({
                 type:"post",
-                url:"/reservationprocess",
+                url:"/reservationupdateprocess",
             data:{
                "seat":seat,
                "requesthour":requesthour,
                "remail":$('#remail').val(),
-               "rname":$('#rname').val()
+               "rname":$('#rname').val(),
+               "rid":$('#rid').val(),
+               "created":$('#created').val(),
             },
             success:function(data){
                 if(data){
-                    alert('예약성공'); 
+                    alert('변경성공'); 
                     out();
                 }else{
                     alert('죄송합니다 예약에 실패 했습니다 예약이 다 찾거나 일시적 오류입니다');

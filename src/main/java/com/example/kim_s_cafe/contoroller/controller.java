@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -72,13 +74,18 @@ public class controller {
     public String reservationpage() {
         return "reservationpage";
     }
-    @GetMapping("/reservationcanclepage")
+    @GetMapping("reservationcanclepage")
     public String reservationcanclepage(Model model) {
 
         String email=userservice.getemail();
         List<reservationvo>array=reservationservice.findreservation(email);
         model.addAttribute("array",array);
         return "reservationcanclepage";
+    }
+    @PostMapping("reservationupdatepage")
+    public String reservationupdatepage(reservationvo reservationvo,Model model) {
+        model.addAttribute("reservationvo",reservationvo);
+        return "reservationupdatepage";
     }
 
     

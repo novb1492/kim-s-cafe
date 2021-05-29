@@ -5,6 +5,9 @@ package com.example.kim_s_cafe.service;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import javax.transaction.Transactional;
+
 import com.example.kim_s_cafe.model.reservation.reservationdao;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +19,32 @@ public class reservationservice {
     private final boolean yes=false;
     private final boolean no=true;
     private final byte opentime=6;
-    private final byte endtime=22;
+    private final byte endtime=24;
 
     @Autowired
     private reservationdao reservationdao;
     
+    @Transactional
+    public boolean reservationupdate(reservationvo reservationvo) {
+        try {
+            reservationvo.setSeat(reservationvo.getSeat());
+            reservationvo.setRequesthour(reservationvo.getRequesthour());
+            reservationvo.setCreated(reservationvo.getCreated());
+            reservationdao.save(reservationvo);
+            return yes;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return no;
+    }
+
     public boolean deletereservation(int rid) {
- try {
-        reservationdao.deleteById(rid);
-        return yes;
- } catch (Exception e) {
-     e.printStackTrace();
- }
-     
+        try {
+                reservationdao.deleteById(rid);
+                return yes;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return no;
     }
 

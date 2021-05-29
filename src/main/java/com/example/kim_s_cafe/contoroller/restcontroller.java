@@ -7,7 +7,6 @@ package com.example.kim_s_cafe.contoroller;
 
 import java.util.List;
 
-import com.example.kim_s_cafe.model.reservation.reservationdao;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
@@ -79,6 +78,14 @@ public class restcontroller {
         }
         return yes;
     }
+    @PostMapping("reservationupdateprocess")
+    public boolean reservationupdateprocess(reservationvo reservationvo,@RequestParam(value = "requesthour[]")List<Integer> requesthour) {
+        System.out.println("test"+requesthour.get(0));
+        reservationvo.setRequesthour(requesthour.get(0));
+        reservationservice.reservationupdate(reservationvo);
+        return no;  
+    }
+   
   
     
 }

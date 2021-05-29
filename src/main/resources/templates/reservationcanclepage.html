@@ -36,14 +36,19 @@
                 <td >[[${array.getRemail}]]</td>
                 <td>[[${array.getCreated}]]</td>
                 <td>
-                    <input type="hidden" class="rid"  th:value="${array.getRid}">
+                    <form action="/reservationupdatepage" method="POST">
+                        <input type="hidden" class="rid" name="rid" th:value="${array.getRid}">
+                        <input type="hidden"  name="requesthour" th:value="${array.getRequesthour}">
+                        <input type="hidden"  name="seat" th:value="${array.getSeat}">
+                        <input type="hidden"  name="remail" th:value="${array.getRemail}">
+                        <input type="hidden"  name="created" th:value="${array.getCreated}">
+                        <input type="submit" value="예약변경"></form>
+                    </form>
                     <input type="button" class="cancle" value="예약취소">
-                    <input type="button" class="update" value="예약변경">
                 </td>
             </tr>				     
         </table>
     </div>
-<div id="test"></div>
 <script>
 $(function(){
       $('.cancle').click(function(){
