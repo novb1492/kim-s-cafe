@@ -3,8 +3,8 @@ class Square{
 
     }
 
-    draw(){
-        noFill();
-        rect(100, 500, 300, 300);
+    draw(x,y,w,h){
+   
+        rect(x,y,w,h);
     }
 }

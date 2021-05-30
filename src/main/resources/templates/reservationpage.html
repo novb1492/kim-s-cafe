@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.min.js"></script>
+    <script src="../static/circletable.js"></script>
+    <script src="../static/anothers.js"></script>
     <script src="../static/squaretable.js"></script>
     <script src="../static/app.js"></script>
     <title>예약페이지</title>
@@ -16,6 +18,7 @@
         margin-top:-100px; margin-left:-200px;text-align:center;box-sizing:border-box; padding:74px 0;line-height:23px; cursor:pointer;}
         #canvas{ position: relative; top: 0%; }
         #text-block {position: absolute;color: black;}
+        #a-1{margin-top: 600px;margin-left: 300px;}
     </style>
 </head>
 <body>
@@ -36,8 +39,13 @@
                 </div>
     
                 <!--<form action="/reservationprocess" method="POST"> 보단 이제 ajax가 훨씬 디테일 하게 컨트롤된다-->
-                a-1<input type="radio"  name="radio" class="seat" onclick="choiceseat('a-1')" ><!--radio중복선택 막는건 name을 통일하면 막힌다20210525-->
-                a-2<input type="radio" name="radio"  class="seat" onclick="choiceseat('a-2')">
+                <div id="a-1" >
+                    a-1<input type="radio" name="radio" class="seat" onclick="choiceseat('a-1')" ><!--radio중복선택 막는건 name을 통일하면 막힌다20210525-->
+                </div>
+                <div id="a-1">
+                    a-2<input type="radio" name="radio"  class="seat" onclick="choiceseat('a-2')">
+                </div>
+              
         </div>
                         <div class="modal">
                             <div class="modal_content">
@@ -67,7 +75,6 @@
     $(function(){
         $('.seat').click(function(){
             $('.modal').fadeIn();
-
             $.ajax({
                 type:"post",
                 url:"/reservationconfrim",
@@ -76,7 +83,6 @@
             },
             success:function(data){
                 if(data!=null){
-
                     alreadytime=data;//예약가능한 시간을 배열로 받음
                     for(var i=0;i<alreadytime.length;i++){ 
                         var ii=alreadytime[i]+1;
