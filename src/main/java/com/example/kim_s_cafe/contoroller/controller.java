@@ -76,7 +76,7 @@ public class controller {
     }
     @GetMapping("reservationcanclepage")
     public String reservationcanclepage(Model model) {
-
+        reservationservice.check24();
         String email=userservice.getemail();
         List<reservationvo>array=reservationservice.findreservation(email);
         model.addAttribute("array",array);

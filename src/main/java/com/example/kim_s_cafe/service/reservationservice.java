@@ -5,9 +5,9 @@ package com.example.kim_s_cafe.service;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import javax.transaction.Transactional;
 
+import com.example.kim_s_cafe.model.history.historyvo;
 import com.example.kim_s_cafe.model.reservation.reservationdao;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +19,12 @@ public class reservationservice {
     private final boolean yes=false;
     private final boolean no=true;
     private final byte opentime=6;
-    private final byte endtime=24;
+    private final byte endtime=23;
 
     @Autowired
     private reservationdao reservationdao;
+    @Autowired
+    private historyservice historyservice;
     
     @Transactional
     public boolean reservationupdate(reservationvo reservationvo) {
@@ -41,6 +43,7 @@ public class reservationservice {
     public boolean deletereservation(int rid) {
         try {
                 reservationdao.deleteById(rid);
+                historyservice.deletehistory(rid);
                 return yes;
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,10 +73,7 @@ public class reservationservice {
     public List<Integer> reservationconfirm(String seat) {
 
         List<Integer>array2=new ArrayList<>();
-
-        Calendar cal = Calendar.getInstance();
-	    int hour = cal.get(Calendar.HOUR_OF_DAY);
-        System.out.println(hour+"현재시간");
+	    int hour = gethour();
         try {
 
             List<Integer>array=reservationdao.findbyseat(seat);
@@ -118,13 +118,30 @@ public class reservationservice {
                      reservationvo2.setRemail(reservationvo.getRemail());
                      reservationvo2.setRname(reservationvo.getRname());
                      reservationvo2.setSeat(reservationvo.getSeat());
-                     reservationdao.save(reservationvo2);   
+                     reservationdao.save(reservationvo2);  
+                     historyvo historyvo= historyservice.inserthistory(reservationvo2);
+                     historyservice.inserthistory(historyvo);
                 }               
                 return yes;
             } catch (Exception e) {
                 e.printStackTrace();      
             }
             return no;  
+    }
+    public void check24() {
+     
+        if(gethour()==24){
+            reservationdao.deleteAll();
+            System.out.println("24시가지나  모든 예약이 삭제됩니다");
+        }
+     
+        
+    }
+    private int gethour() {
+        Calendar cal = Calendar.getInstance();
+	    int hour = cal.get(Calendar.HOUR_OF_DAY);
+        System.out.println(hour+"현재시간");
+        return hour;  
     }
  
     

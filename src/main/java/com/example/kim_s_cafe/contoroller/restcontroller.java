@@ -56,6 +56,7 @@ public class restcontroller {
     }
     @PostMapping("reservationconfrim")
     public List<Integer> reservationconfirm(@RequestParam("seat")String seat) {
+        reservationservice.check24();
         List<Integer>array=reservationservice.reservationconfirm(seat);
         return array;
     }
