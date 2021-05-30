@@ -130,7 +130,7 @@ public class reservationservice {
     }
     public void check24() {
      
-        if(gethour()==24){
+        if(gethour()==0){
             reservationdao.deleteAll();
             System.out.println("24시가지나  모든 예약이 삭제됩니다");
         }

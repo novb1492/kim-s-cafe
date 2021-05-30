@@ -36,15 +36,17 @@
                 <td >[[${array.getRemail}]]</td>
                 <td>[[${array.getCreated}]]</td>
                 <td>
-                    <form action="/reservationupdatepage" method="POST">
-                        <input type="hidden" class="rid" name="rid" th:value="${array.getRid}">
-                        <input type="hidden"  name="requesthour" th:value="${array.getRequesthour}">
-                        <input type="hidden"  name="seat" th:value="${array.getSeat}">
-                        <input type="hidden"  name="remail" th:value="${array.getRemail}">
-                        <input type="hidden"  name="created" th:value="${array.getCreated}">
-                        <input type="submit" value="예약변경"></form>
-                    </form>
-                    <input type="button" class="cancle" value="예약취소">
+                    <div >
+                        <form action="/reservationupdatepage" method="POST">
+                            <input type="hidden" class="rid" name="rid" th:value="${array.getRid}">
+                            <input type="hidden"  name="requesthour" th:value="${array.getRequesthour}">
+                            <input type="hidden"  name="seat" th:value="${array.getSeat}">
+                            <input type="hidden"  name="remail" th:value="${array.getRemail}">
+                            <input type="hidden"  name="created" th:value="${array.getCreated}">
+                            <input type="submit" value="예약변경"></form>
+                        </form>
+                        <input type="button" class="cancle" value="예약취소">
+                    </div>
                 </td>
             </tr>				     
         </table>
