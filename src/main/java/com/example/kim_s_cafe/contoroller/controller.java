@@ -106,6 +106,7 @@ public class controller {
     @GetMapping("/auth/boardlist")
     public String boardlist(Model model,@RequestParam(value="page", defaultValue = "1") int currentpage) {  
        Page<boardvo>array=boardservice.getboards(currentpage);
+       model.addAttribute("search",false);
        model.addAttribute("array", array);
        model.addAttribute("totalpage", array.getTotalPages());
        model.addAttribute("currentpage", currentpage);
@@ -123,6 +124,8 @@ public class controller {
         int totalpages=boardservice.getsearchboardscount(title);
         System.out.println("검색한 키워드 총페이지 "+totalpages);
         List<boardvo>array=boardservice.getsearchboards(currentpage, title,totalpages);
+        model.addAttribute("title", title);
+        model.addAttribute("search", true);
         model.addAttribute("currentpage", currentpage);
         model.addAttribute("totalpage", totalpages);
         model.addAttribute("array", array);
@@ -138,7 +141,6 @@ public class controller {
             boardvo boardvo= contentservice.getcontent(bid);
             int totalpages=commentservice.totalcommentcount(bid);
             List<commentvo>array=commentservice.commentpagin(bid, currentpage, totalpages);
-
             model.addAttribute("boardvo", boardvo);
             model.addAttribute("array", array);
         } catch (Exception e) {

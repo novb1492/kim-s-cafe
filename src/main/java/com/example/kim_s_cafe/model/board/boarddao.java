@@ -12,7 +12,7 @@ public interface boarddao extends JpaRepository<boardvo,Integer> {
     public List<boardvo> findsearch(String title,int fisrt,int end);
     @Query(value = "select count(*) from board where title like %?1%",nativeQuery = true)
     public int findallcountbytitle(String title);
-    @Query(value = "select *from board where title like %?1% order by bid",nativeQuery = true)
+    @Query(value = "select *from board where title like %?1% order by bid desc",nativeQuery = true)
     public List<boardvo>findsearch2(String title);
     
 

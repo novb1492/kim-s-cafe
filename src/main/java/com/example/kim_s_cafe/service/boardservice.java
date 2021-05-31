@@ -66,7 +66,7 @@ public class boardservice {
             if(totalpages>1){
                 fisrt=(currentpage-1)*pagesize+1;
                 end=fisrt+pagesize-1; 
-                array=boarddao.findsearch(title,fisrt,end);
+                array=boarddao.findsearch(title,fisrt-1,end-fisrt+1);
             }else{
                 array=boarddao.findsearch2(title);
             }
