@@ -115,7 +115,7 @@ public class controller {
         int totalpages=boardservice.getsearchboardscount(title);
         System.out.println("검색한 키워드 총페이지 "+totalpages);
         List<boardvo>array=boardservice.getsearchboards(currentpage, title,totalpages);
-
+        model.addAttribute("currentpage", currentpage);
         model.addAttribute("totalpage", totalpages);
         model.addAttribute("array", array);
         
