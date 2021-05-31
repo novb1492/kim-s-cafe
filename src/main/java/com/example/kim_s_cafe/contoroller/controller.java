@@ -5,10 +5,12 @@ package com.example.kim_s_cafe.contoroller;
 
 import java.util.List;
 
+import com.example.kim_s_cafe.model.board.boarddao;
 import com.example.kim_s_cafe.model.board.boardvo;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.model.user.uservo;
 import com.example.kim_s_cafe.service.boardservice;
+import com.example.kim_s_cafe.service.contentservice;
 import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
 
@@ -34,6 +36,8 @@ public class controller {
     private reservationservice reservationservice;
     @Autowired
     private boardservice boardservice;
+    @Autowired
+    private contentservice contentservice;
  
 
     @PostMapping("/auth/joinprocess")
@@ -121,5 +125,26 @@ public class controller {
         
         return "boardlist"; 
     }
-    
+    @GetMapping("/auth/content")
+    public String content(@RequestParam("bid")int bid,Model model,@RequestParam(value="page", defaultValue = "1") int currentpage) {
+        try {
+            boardvo boardvo= contentservice.getcontent(bid);
+            System.out.println("들어온 글번호"+boardvo.getBid());
+            model.addAttribute("boardvo", boardvo);
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+        return "content";
+    }
+    @GetMapping("updatecontent")
+    public String updatecontent(@RequestParam("bid")int bid,Model model) {
+        
+        boardvo vo=contentservice.getcontentnohit(bid);
+        if(vo!=null){
+            model.addAttribute("boardvo", vo);
+            return "updatecontent";
+        }else{
+            return "updatecontent";
+        }
+    }
 }

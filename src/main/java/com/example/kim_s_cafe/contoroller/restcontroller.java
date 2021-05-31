@@ -10,6 +10,7 @@ import java.util.List;
 import com.example.kim_s_cafe.model.board.boardvo;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.service.boardservice;
+import com.example.kim_s_cafe.service.contentservice;
 import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
 
@@ -30,6 +31,8 @@ public class restcontroller {
     private reservationservice reservationservice;
     @Autowired
     private boardservice boardservice;
+    @Autowired
+    private contentservice contentservice;
     
     @PostMapping("/auth/comfirm")
     public String checkemail(@RequestParam("email")String email) {
@@ -104,7 +107,17 @@ public class restcontroller {
       }
       return no; 
     }
-   
+    @PostMapping("updatecontentprocess")
+    public boolean updatecontentprocess(boardvo vo,@RequestParam("bid")int bid) {
+        
+        boolean yorn=contentservice.updatecontent(bid, vo);
+        if(yorn){
+            return yes;
+        }else{
+            return no;
+        }
+        
+    }
   
     
 }

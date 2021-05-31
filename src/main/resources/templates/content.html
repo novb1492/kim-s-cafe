@@ -10,18 +10,18 @@
 <body>
     <a href="/auth/index">홈</a>
     <br>
-    <div th:text="${session.email}"></div>
+    <div th:text="${#authentication.name}"></div>
 
     <div th:with="vo= ${boardvo}" >
-            <div th:text="${'제목'+vo.gettitle}"></div>
-            <div th:text="${'작성자'+vo.getemail}"></div>
+            <div th:text="${'제목'+vo.getTitle}"></div>
+            <div th:text="${'작성자'+vo.getEmail}"></div>
             내용
-            <div th:text="${vo.getcontent}"></div>
-            <div th:text="${'조회수'+'&nbsp'+vo.gethit}"></div>
+            <div th:text="${vo.getContent}"></div>
+            <div th:text="${'조회수'+'&nbsp'+vo.getHit}"></div>
 
-            <div th:if="${session.email==vo.getemail}">
+            <div th:if="${#authentication.name==vo.getEmail}">
                 <form action="/updatecontent">
-                    <input type="hidden" id="bid" name="bid" th:value="${vo.getbid}">
+                    <input type="hidden" id="bid" name="bid" th:value="${vo.getBid}">
                     <input type="submit" id="update" value="수정">
                 </form>
                 <form action="deletecontent">
@@ -33,32 +33,13 @@
             <a href="/auth/boardlist">게시판</a>
             <br>
             댓글
-            <div th:if="${session.email!=null}">
+            <div th:if="${#authentication.name!=null}">
                 <input type="text" id="comment" name="comment"><!--본문-->
-                <input type="hidden" id="bid" name="bid" th:value="${vo.getbid}">
+                <input type="hidden" id="bid" name="bid" th:value="${vo.getBid}">
                 <input type="button" id="button" value="완료">
             </div>
     </div>
-    <div th:each="comment : ${array}">
-            작성자  <div th:text="${comment.getemail}"></div>
-            내용    <div th:text="${comment.getcomment}"></div>
-            <div th:if="${session.email==comment.getemail}">
-                <input type="button"value="수정">
-                <input type="button"value="삭제">
-            </div>    
-                    <div th:if="${session.email!=null}">
-
-                        <a href="#" id="replybutton">답글</a>
-                        <div id="reply"></div>
-                        <div id="canclereplybutton"></div>
-                    </div>
-    </div>
-        <div th:if="${lastpage>0}">
-        <div th:with="vo= ${boardvo}" >
-            <div th:each="num: ${#numbers.sequence(1,lastpage)}">
-                <a th:href="@{content?(bid=${vo.getbid},page=${num})}">[[${num}]]</a><!--묻혀서 보내는것도 불편하구만 jstl에 비해-->
-            </div>
-        </div>
+    
 </div>
     
 
