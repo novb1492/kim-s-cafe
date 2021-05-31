@@ -109,5 +109,17 @@ public class controller {
         
         return "writearticle";
     }
+    @GetMapping("/auth/search")
+    public String search(@RequestParam("title")String title,Model model,@RequestParam(value="page", defaultValue = "1") int currentpage) {
+
+        int totalpages=boardservice.getsearchboardscount(title);
+        System.out.println("검색한 키워드 총페이지 "+totalpages);
+        List<boardvo>array=boardservice.getsearchboards(currentpage, title,totalpages);
+
+        model.addAttribute("totalpage", totalpages);
+        model.addAttribute("array", array);
+        
+        return "boardlist"; 
+    }
     
 }
