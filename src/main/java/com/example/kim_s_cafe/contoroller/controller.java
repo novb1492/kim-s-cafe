@@ -141,6 +141,8 @@ public class controller {
             boardvo boardvo= contentservice.getcontent(bid);
             int totalpages=commentservice.totalcommentcount(bid);
             List<commentvo>array=commentservice.commentpagin(bid, currentpage, totalpages);
+            model.addAttribute("currentpage", currentpage);
+            model.addAttribute("totalpage", totalpages);
             model.addAttribute("boardvo", boardvo);
             model.addAttribute("array", array);
         } catch (Exception e) {

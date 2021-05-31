@@ -12,7 +12,7 @@
     <br>
     <div th:text="${#authentication.name}"></div>
 
-    <div th:with="vo= ${boardvo}" >
+    <div th:with="vo= ${boardvo}" > <!--주석이 없네 20210531 이렇게 with를 쓰면 그 div안에서 객체를 변수처럼 쓸수있다!-->
             <div th:text="${'제목'+vo.getTitle}"></div>
             <div th:text="${'작성자'+vo.getEmail}"></div>
             내용
@@ -40,20 +40,35 @@
                 <input type="button" id="button" value="완료">
             </div>
     </div>
-        <div th:each="comment : ${array}">
-            작성자  <div th:text="${comment.getEmail}"></div>
-            내용    <div th:text="${comment.getComment}"></div>
-            <div th:if="${#authentication.name==comment.getEmail}">
-                <input type="button"value="수정">
-                <input type="button"value="삭제">
-            </div>    
-                    <div sec:authorize="isAuthenticated()">
-
-                        <a href="#" class="replybutton">답글</a>
-                        <div id="reply"></div>
-                        <div id="canclereplybutton"></div>
-                    </div>
-        </div>
+            <div th:each="comment : ${array}">
+                작성자  <div th:text="${comment.getEmail}"></div>
+                내용    <div th:text="${comment.getComment}"></div>
+                <div th:if="${#authentication.name==comment.getEmail}">
+                    <input type="button"value="수정">
+                    <input type="button"value="삭제">
+                </div>    
+                <div sec:authorize="isAuthenticated()">
+                    <a href="#" class="replybutton">답글</a>
+                    <div id="reply"></div>
+                    <div id="canclereplybutton"></div>
+                </div>
+            </div>
+            <div th:if="${currentpage<totalpage}">
+                <form action="/auth/content">
+                    <input type="hidden" name="bid" th:value="${boardvo.getBid}">
+                    <input type="hidden" name="page" th:value="${currentpage+1}">
+                    <input type="submit" value="다음">
+                </form>
+           </div>
+                <div th:if="${currentpage>1}">
+                    <form action="/auth/content">
+                        <input type="hidden" name="bid" th:value="${boardvo.getBid}">
+                        <input type="hidden" name="page" th:value="${currentpage-1}">
+                        <input type="submit" value="이전">
+                    </form>
+                </div>
+            <div >[[${currentpage}]]/[[${totalpage}]]</div>
+            
 
     
 
