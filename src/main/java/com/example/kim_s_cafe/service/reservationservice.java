@@ -137,7 +137,7 @@ public class reservationservice {
      
         
     }
-    private int gethour() {
+    public int gethour() {
         Calendar cal = Calendar.getInstance();
 	    int hour = cal.get(Calendar.HOUR_OF_DAY);
         System.out.println(hour+"현재시간");

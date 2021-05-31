@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -79,6 +79,8 @@ public class controller {
         reservationservice.check24();
         String email=userservice.getemail();
         List<reservationvo>array=reservationservice.findreservation(email);
+        int nowhour=reservationservice.gethour();
+        model.addAttribute("nowhour", nowhour);
         model.addAttribute("array",array);
         return "reservationcanclepage";
     }

@@ -36,7 +36,7 @@
                 <td >[[${array.getRemail}]]</td>
                 <td>[[${array.getCreated}]]</td>
                 <td>
-                    <div >
+                    <div th:if="${array.getRequesthour>nowhour}">
                         <form action="/reservationupdatepage" method="POST">
                             <input type="hidden" class="rid" name="rid" th:value="${array.getRid}">
                             <input type="hidden"  name="requesthour" th:value="${array.getRequesthour}">
