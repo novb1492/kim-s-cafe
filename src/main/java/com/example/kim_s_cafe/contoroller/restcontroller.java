@@ -8,8 +8,11 @@ package com.example.kim_s_cafe.contoroller;
 import java.util.List;
 
 import com.example.kim_s_cafe.model.board.boardvo;
+import com.example.kim_s_cafe.model.comment.commentdao;
+import com.example.kim_s_cafe.model.comment.commentvo;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.service.boardservice;
+import com.example.kim_s_cafe.service.commentservice;
 import com.example.kim_s_cafe.service.contentservice;
 import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
@@ -33,6 +36,8 @@ public class restcontroller {
     private boardservice boardservice;
     @Autowired
     private contentservice contentservice;
+    @Autowired
+    private commentservice commentservice;
     
     @PostMapping("/auth/comfirm")
     public String checkemail(@RequestParam("email")String email) {
@@ -116,6 +121,16 @@ public class restcontroller {
         }else{
             return no;
         }
+        
+    }
+    @PostMapping("insertcomment")
+    public boolean insertcomment(commentvo commentvo) {
+        System.out.println("댓글을 시도하는 이메일 "+commentvo.getEmail());
+        boolean yorn=commentservice.insertcomment(commentvo);
+        if(yorn){
+            return yes;
+        }
+        return no;
         
     }
   

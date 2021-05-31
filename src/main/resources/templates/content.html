@@ -33,14 +33,28 @@
             <a href="/auth/boardlist">게시판</a>
             <br>
             댓글
-            <div th:if="${#authentication.name!=null}">
-                <input type="text" id="comment" name="comment"><!--본문-->
-                <input type="hidden" id="bid" name="bid" th:value="${vo.getBid}">
+            <div sec:authorize="isAuthenticated()">
+                <input type="text" id="comment" ><!--본문-->
+                <input type="hidden" id="bid" th:value="${vo.getBid}">
+                <input type="hidden" id="email" th:value="${#authentication.name}">
                 <input type="button" id="button" value="완료">
             </div>
     </div>
-    
-</div>
+        <div th:each="comment : ${array}">
+            작성자  <div th:text="${comment.getEmail}"></div>
+            내용    <div th:text="${comment.getComment}"></div>
+            <div th:if="${#authentication.name==comment.getEmail}">
+                <input type="button"value="수정">
+                <input type="button"value="삭제">
+            </div>    
+                    <div sec:authorize="isAuthenticated()">
+
+                        <a href="#" class="replybutton">답글</a>
+                        <div id="reply"></div>
+                        <div id="canclereplybutton"></div>
+                    </div>
+        </div>
+
     
 
 <script>
@@ -72,12 +86,15 @@ $(function()
             url:"/insertcomment",
             data:{
                 "bid":$('#bid').val(),
-                "comment":$('#comment').val()
+                "comment":$('#comment').val(),
+                "email":$('#email').val()
             },
             success:function(data){
-            if($.trim(data)=="yes")
+            if(data)
             {
                 location.href="/auth/content?bid="+$('#bid').val();
+            }else{
+                alert('등록에 실패 했습니다 다시 시도 바랍니다');
             }
         }
         })

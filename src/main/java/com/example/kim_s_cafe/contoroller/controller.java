@@ -7,9 +7,11 @@ import java.util.List;
 
 import com.example.kim_s_cafe.model.board.boarddao;
 import com.example.kim_s_cafe.model.board.boardvo;
+import com.example.kim_s_cafe.model.comment.commentvo;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.model.user.uservo;
 import com.example.kim_s_cafe.service.boardservice;
+import com.example.kim_s_cafe.service.commentservice;
 import com.example.kim_s_cafe.service.contentservice;
 import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
@@ -38,6 +40,8 @@ public class controller {
     private boardservice boardservice;
     @Autowired
     private contentservice contentservice;
+    @Autowired
+    private commentservice commentservice;
  
 
     @PostMapping("/auth/joinprocess")
@@ -127,10 +131,16 @@ public class controller {
     }
     @GetMapping("/auth/content")
     public String content(@RequestParam("bid")int bid,Model model,@RequestParam(value="page", defaultValue = "1") int currentpage) {
+        
+        System.out.println("들어온 글번호"+bid);
+        
         try {
             boardvo boardvo= contentservice.getcontent(bid);
-            System.out.println("들어온 글번호"+boardvo.getBid());
+            int totalpages=commentservice.totalcommentcount(bid);
+            List<commentvo>array=commentservice.commentpagin(bid, currentpage, totalpages);
+
             model.addAttribute("boardvo", boardvo);
+            model.addAttribute("array", array);
         } catch (Exception e) {
            e.printStackTrace();
         }
