@@ -5,16 +5,20 @@ package com.example.kim_s_cafe.contoroller;
 
 import java.util.List;
 
+import com.example.kim_s_cafe.model.board.boardvo;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.model.user.uservo;
+import com.example.kim_s_cafe.service.boardservice;
 import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -28,6 +32,8 @@ public class controller {
     private userservice userservice;
     @Autowired
     private reservationservice reservationservice;
+    @Autowired
+    private boardservice boardservice;
  
 
     @PostMapping("/auth/joinprocess")
@@ -89,6 +95,19 @@ public class controller {
         model.addAttribute("reservationvo",reservationvo);
         return "reservationupdatepage";
     }
-
+    @GetMapping("/auth/boardlist")
+    public String boardlist(Model model,@RequestParam(value="page", defaultValue = "1") int currentpage) {  
+       Page<boardvo>array=boardservice.getboards(currentpage);
+       model.addAttribute("array", array);
+       model.addAttribute("totalpage", array.getTotalPages());
+       model.addAttribute("currentpage", currentpage);
+        return "boardlist";
+        
+    }
+    @GetMapping("/writearticle")
+    public String  writepage() {
+        
+        return "writearticle";
+    }
     
 }

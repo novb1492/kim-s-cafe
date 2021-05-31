@@ -7,7 +7,9 @@ package com.example.kim_s_cafe.contoroller;
 
 import java.util.List;
 
+import com.example.kim_s_cafe.model.board.boardvo;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
+import com.example.kim_s_cafe.service.boardservice;
 import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
 
@@ -26,6 +28,8 @@ public class restcontroller {
     private userservice userservice;
     @Autowired
     private reservationservice reservationservice;
+    @Autowired
+    private boardservice boardservice;
     
     @PostMapping("/auth/comfirm")
     public String checkemail(@RequestParam("email")String email) {
@@ -90,6 +94,15 @@ public class restcontroller {
         }else{
             return yes;    
         } 
+    }
+    @PostMapping("writearticleprocess")
+    public boolean writearticleprocess(boardvo boardvo) {
+        
+      boolean yorn= boardservice.insertarticle(boardvo);
+      if(yorn){
+          return yes;
+      }
+      return no; 
     }
    
   
