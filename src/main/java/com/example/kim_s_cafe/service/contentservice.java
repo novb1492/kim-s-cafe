@@ -4,8 +4,6 @@ import javax.transaction.Transactional;
 
 import com.example.kim_s_cafe.model.board.boarddao;
 import com.example.kim_s_cafe.model.board.boardvo;
-import com.example.kim_s_cafe.model.comment.commentdao;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

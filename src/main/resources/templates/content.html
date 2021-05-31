@@ -47,10 +47,11 @@
                     <input type="button"value="수정">
                     <input type="button"value="삭제">
                 </div>    
-                <div sec:authorize="isAuthenticated()">
-                    <a href="#" class="replybutton">답글</a>
-                    <div id="reply"></div>
-                    <div id="canclereplybutton"></div>
+                <div sec:authorize="!isAuthenticated()">
+                    <a href="#" id="replybutton">답글</a>
+                        <div id="reply"></div>
+                        <div id="canclereplybutton"></div>
+                  
                 </div>
             </div>
             <div th:if="${currentpage<totalpage}">
@@ -76,14 +77,11 @@
 $(function()
 {
     $('#replybutton').click(function(){
-        $('#reply').html('<input type="text" id="writereply">');
-        $('#canclereplybutton').html('<input type="button" id="canclereply" value="취소">');
+        $('#reply').append("<input type='text' name='reply' placeholder='댓글을 입력해주세요'>");
+        $('#canclereplybutton').append('<input type="button" id="canclereply" value="취소">');
     })
-    $('#canclereply').click(function(){
-        $('#reply').remove();
-        $('#canclereplybutton').remove();
-        $('#writereply').remove();
-        $('#canclereply').remove();
+    $('#canclereplybutton').click(function(){
+        $('#replyarea').remove();
     })
     $('#comment').keyup(function(){
         if( $('#comment').val().length>50)

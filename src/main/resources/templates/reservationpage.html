@@ -18,7 +18,6 @@
         margin-top:-100px; margin-left:-200px;text-align:center;box-sizing:border-box; padding:74px 0;line-height:23px; cursor:pointer;}
         #canvas{ position: relative; top: 0%; }
         #text-block {position: absolute;color: black;}
-        #a-1{margin-top: 600px;margin-left: 300px;}
     </style>
 </head>
 <body>
@@ -35,18 +34,16 @@
                     <div sec:authentication="name" ></div>
                     <a href="/mypage">마이페이지</a>
                     <a href="/logout">로그아웃</a>
-                    <a href="/reservationcanclepage">예약취소</a>
+                    <a href="/showreservationcepage">예약내역</a>
                 </div>
     
                 <!--<form action="/reservationprocess" method="POST"> 보단 이제 ajax가 훨씬 디테일 하게 컨트롤된다-->
-                <div id="a-1" >
                     a-1<input type="radio" name="radio" class="seat" onclick="choiceseat('a-1')" ><!--radio중복선택 막는건 name을 통일하면 막힌다20210525-->
-                </div>
-              
                     a-2<input type="radio" name="radio"  class="seat" onclick="choiceseat('a-2')">
-                
+                    a-3<input type="radio" name="radio"  class="seat" onclick="choiceseat('a-3')">
+                    a-4<input type="radio" name="radio"  class="seat" onclick="choiceseat('a-4')">
+        </div>            
               
-        </div>
                         <div class="modal">
                             <div class="modal_content">
                                 <br>

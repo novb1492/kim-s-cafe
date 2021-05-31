@@ -5,7 +5,7 @@ package com.example.kim_s_cafe.contoroller;
 
 import java.util.List;
 
-import com.example.kim_s_cafe.model.board.boarddao;
+
 import com.example.kim_s_cafe.model.board.boardvo;
 import com.example.kim_s_cafe.model.comment.commentvo;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
@@ -88,15 +88,15 @@ public class controller {
     public String reservationpage() {
         return "reservationpage";
     }
-    @GetMapping("reservationcanclepage")
-    public String reservationcanclepage(Model model) {
+    @GetMapping("showreservationcepage")
+    public String showreservationcepage(Model model) {
         reservationservice.check24();
         String email=userservice.getemail();
         List<reservationvo>array=reservationservice.findreservation(email);
         int nowhour=reservationservice.gethour();
         model.addAttribute("nowhour", nowhour);
         model.addAttribute("array",array);
-        return "reservationcanclepage";
+        return "showreservationcepage";
     }
     @PostMapping("reservationupdatepage")
     public String reservationupdatepage(reservationvo reservationvo,Model model) {

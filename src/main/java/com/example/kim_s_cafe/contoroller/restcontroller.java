@@ -8,7 +8,6 @@ package com.example.kim_s_cafe.contoroller;
 import java.util.List;
 
 import com.example.kim_s_cafe.model.board.boardvo;
-import com.example.kim_s_cafe.model.comment.commentdao;
 import com.example.kim_s_cafe.model.comment.commentvo;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.service.boardservice;
