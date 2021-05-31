@@ -40,22 +40,18 @@
     </div>
             <div th:each="comment : ${array}">
                 작성자  <div th:text="${comment.getEmail}"></div>
-                내용    <input type="text" th:value="${comment.getComment}" disabled></input>
+                내용    <input type="text"  class="commentinput" th:value="${comment.getComment}" disabled></input>
                 <div th:if="${#authentication.name==comment.getEmail}">
                     <input type="hidden" class="cid" th:value="${comment.getCid}">
-                    <input type="button"value="수정">
+                    <input type="button"  value="수정">
                     <form action="/deletecomment" method="POST">
                         <input type="hidden" name="bid" th:value="${comment.getBid}">
                         <input type="hidden" name="cid" th:value="${comment.getCid}">
                         <input type="submit" value="삭제">
                     </form>
-                   
                 </div>    
                 <div sec:authorize="!isAuthenticated()">
-                    <a href="#" id="replybutton">답글</a>
-                        <div id="reply"></div>
-                        <div id="canclereplybutton"></div>
-                  
+                    <a href="#" class="replybutton">답글</a>
                 </div>
             </div>
             <div th:if="${currentpage<totalpage}">
@@ -73,10 +69,16 @@
                     </form>
                 </div>
             <div >[[${currentpage}]]/[[${totalpage}]]</div>
-            
 <script>
+    
 $(function()
 {
+    $('.replybutton').click(function(){
+        $(this).append("<br><input type='text' class='reply' name='reply' placeholder='답글을 입력해주세요'><br>");
+        $(this).append("<input type='button' class='replyinsertbutton'  value='완료'>");
+        $(this).append("<input type='button' class='replycanclebutton'  value='취소'>");
+    });
+
     $('#deletearticle').click(function(){
         $.ajax({
             type:"post",
