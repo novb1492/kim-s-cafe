@@ -25,7 +25,6 @@ public class commentservice {
        List<commentvo>array=new ArrayList<>();
 
        try {
-
             if(totalpages>0){
                 int fisrt=(currentpage-1)*pagesize+1;
                 int end=fisrt+pagesize-1;
@@ -51,7 +50,6 @@ public class commentservice {
         System.out.println(bid+"글의 총 댓글"+count);
         System.out.println("댓글총페이지"+totalpages);
         return totalpages;
-        
     }
     public boolean insertcomment(commentvo commentvo) {
 
@@ -60,6 +58,24 @@ public class commentservice {
             return yes;
         } catch (Exception e) {
            e.printStackTrace();
+        }
+        return no;
+    }
+    public void deletecommentbycid(int cid) {
+        try {
+            commentdao.deleteById(cid);
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+        
+    }
+    public boolean deletecommentbybid(int bid) {
+
+        try {
+            commentdao.deleteBybidNative(bid);
+            return yes;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return no;
     }

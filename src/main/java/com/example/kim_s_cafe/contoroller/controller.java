@@ -17,7 +17,6 @@ import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,8 +45,8 @@ public class controller {
 
     @PostMapping("/auth/joinprocess")
     public String name(uservo uservo) {
-        boolean tf=userservice.insertmember(uservo);
-        if(tf==true)
+        boolean yorn=userservice.insertmember(uservo);
+        if(yorn)
         {
             return "loginpage";
         }
@@ -75,8 +74,7 @@ public class controller {
     public String mypage(Model model) {
     
         String email=userservice.getemail();
-        uservo uservo=userservice.getinfor(email);
-        model.addAttribute("uservo", uservo);
+        model.addAttribute("uservo", userservice.getinfor(email));
         return "mypage";
     }
     @GetMapping("updatepwdpage")
@@ -92,10 +90,9 @@ public class controller {
     public String showreservationcepage(Model model) {
         reservationservice.check24();
         String email=userservice.getemail();
-        List<reservationvo>array=reservationservice.findreservation(email);
-        int nowhour=reservationservice.gethour();
-        model.addAttribute("nowhour", nowhour);
-        model.addAttribute("array",array);
+        
+        model.addAttribute("nowhour", reservationservice.gethour());
+        model.addAttribute("array",reservationservice.findreservation(email));
         return "showreservationcepage";
     }
     @PostMapping("reservationupdatepage")
@@ -105,10 +102,9 @@ public class controller {
     }
     @GetMapping("/auth/boardlist")
     public String boardlist(Model model,@RequestParam(value="page", defaultValue = "1") int currentpage) {  
-       Page<boardvo>array=boardservice.getboards(currentpage);
        model.addAttribute("search",false);
-       model.addAttribute("array", array);
-       model.addAttribute("totalpage", array.getTotalPages());
+       model.addAttribute("array", boardservice.getboards(currentpage));
+       model.addAttribute("totalpage", boardservice.getboards(currentpage).getTotalPages());
        model.addAttribute("currentpage", currentpage);
         return "boardlist";
         
@@ -161,4 +157,20 @@ public class controller {
             return "updatecontent";
         }
     }
+    @PostMapping("deletecomment")
+    public String deletecomment(@RequestParam("bid")int bid,@RequestParam("cid")int cid,Model model,@RequestParam(value="page", defaultValue = "1") int currentpage ) {
+
+        System.out.println("삭제하는 댓글의 게시글번호"+bid+"삭제하는 댓글번호"+cid);
+        commentservice.deletecommentbycid(cid);
+        boardvo boardvo=contentservice.getcontent(bid);
+        int totalpages=commentservice.totalcommentcount(bid);
+        List<commentvo>array=commentservice.commentpagin(bid, currentpage, totalpages);
+        model.addAttribute("boardvo", boardvo);
+        model.addAttribute("bid", bid);
+        model.addAttribute("array", array);
+        model.addAttribute("totalpage", totalpages);
+        model.addAttribute("currentpage", currentpage);
+        return "content";
+    }
+
 }

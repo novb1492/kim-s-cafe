@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.kim_s_cafe.model.board.boarddao;
 import com.example.kim_s_cafe.model.board.boardvo;
+import com.example.kim_s_cafe.model.comment.commentdao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,16 @@ public class boardservice {
     @Autowired
     private boarddao boarddao;
 
+
+    public boolean deletearticle(int bid) {
+        try {
+            boarddao.deleteById(bid);
+            return yes;
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+        return no;
+    }
     public boolean insertarticle(boardvo boardvo) {
         try {
             boarddao.save(boardvo);
@@ -35,8 +46,7 @@ public class boardservice {
     public Page<boardvo> getboards(int currentpage) {
 
         try {
-            Page<boardvo>array=boarddao.findAll(PageRequest.of(currentpage-1, pagesize,Sort.by(Sort.Direction.DESC,"bid")));
-            return array;
+            return boarddao.findAll(PageRequest.of(currentpage-1, pagesize,Sort.by(Sort.Direction.DESC,"bid")));
         } catch (Exception e) {
            e.printStackTrace();
         }

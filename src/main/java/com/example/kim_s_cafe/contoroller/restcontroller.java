@@ -130,7 +130,16 @@ public class restcontroller {
             return yes;
         }
         return no;
-        
+    }
+    @PostMapping("deletearticle")
+    public boolean deletearticle(@RequestParam("bid")int bid) {
+        boolean yorn=boardservice.deletearticle(bid);
+        boolean yorn2=commentservice.deletecommentbybid(bid);
+        if(yorn&&yorn2){
+            return yes;
+        }else{
+            return no;
+        }
     }
   
     

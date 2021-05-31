@@ -12,7 +12,7 @@
     <br>
     <div th:text="${#authentication.name}"></div>
 
-    <div th:with="vo= ${boardvo}" > <!--주석이 없네 20210531 이렇게 with를 쓰면 그 div안에서 객체를 변수처럼 쓸수있다!-->
+    <div th:with="vo= ${boardvo}" > <!--주석이 없네 20210531 이렇게 with를 쓰면 그 div안에서 객체를 변수처럼 쓸수있다! 그냥 궁금해서 해본거다-->
             <div th:text="${'제목'+vo.getTitle}"></div>
             <div th:text="${'작성자'+vo.getEmail}"></div>
             내용
@@ -24,9 +24,7 @@
                     <input type="hidden" id="bid" name="bid" th:value="${vo.getBid}">
                     <input type="submit" id="update" value="수정">
                 </form>
-                <form action="deletecontent">
-                    <input type="submit" id="delete" value="삭제">
-                </form>
+                    <input type="button" id="deletearticle" value="삭제">
                 </div>
                 <div id="errorcomment"></div>  
             <br>
@@ -42,10 +40,16 @@
     </div>
             <div th:each="comment : ${array}">
                 작성자  <div th:text="${comment.getEmail}"></div>
-                내용    <div th:text="${comment.getComment}"></div>
+                내용    <input type="text" th:value="${comment.getComment}" disabled></input>
                 <div th:if="${#authentication.name==comment.getEmail}">
+                    <input type="hidden" class="cid" th:value="${comment.getCid}">
                     <input type="button"value="수정">
-                    <input type="button"value="삭제">
+                    <form action="/deletecomment" method="POST">
+                        <input type="hidden" name="bid" th:value="${comment.getBid}">
+                        <input type="hidden" name="cid" th:value="${comment.getCid}">
+                        <input type="submit" value="삭제">
+                    </form>
+                   
                 </div>    
                 <div sec:authorize="!isAuthenticated()">
                     <a href="#" id="replybutton">답글</a>
@@ -70,12 +74,27 @@
                 </div>
             <div >[[${currentpage}]]/[[${totalpage}]]</div>
             
-
-    
-
 <script>
 $(function()
 {
+    $('#deletearticle').click(function(){
+        $.ajax({
+            type:"post",
+            url:"/deletearticle",
+            data:{
+                "bid":$('#bid').val(),
+            },
+            success:function(data){
+            if(data)
+            {
+                alert('글을 삭제 했습니다');
+                location.href="/auth/boardlist";
+            }else{
+                alert('삭제에 실패 했습니다 다시 시도 바랍니다');
+            }
+        }
+        })
+    })
     $('#replybutton').click(function(){
         $('#reply').append("<input type='text' name='reply' placeholder='댓글을 입력해주세요'>");
         $('#canclereplybutton').append('<input type="button" id="canclereply" value="취소">');
