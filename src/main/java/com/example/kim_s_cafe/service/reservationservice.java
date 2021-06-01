@@ -2,9 +2,14 @@ package com.example.kim_s_cafe.service;
 
 
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
 import javax.transaction.Transactional;
 
 
@@ -20,7 +25,7 @@ public class reservationservice {
     private final boolean yes=false;
     private final boolean no=true;
     private final byte opentime=6;
-    private final byte endtime=23;
+    private final byte endtime=26;
 
     @Autowired
     private reservationdao reservationdao;
@@ -51,7 +56,7 @@ public class reservationservice {
     public boolean reservationupdate(reservationvo reservationvo) {
         try {
             reservationvo.setSeat(reservationvo.getSeat());
-            reservationvo.setRequesthour(reservationvo.getRequesthour());
+            //reservationvo.setRequesthour(reservationvo.getRequesthour());
             reservationvo.setCreated(reservationvo.getCreated());
             reservationdao.save(reservationvo);
             return yes;
@@ -130,18 +135,24 @@ public class reservationservice {
         return null;
     }
     public boolean insertreservation(reservationvo reservationvo,List<Integer> requesthour) {
-      
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+        String today = sdf.format(date);
             try {  
                 for(int i=0;i<requesthour.size();i++){
                     reservationvo reservationvo2=new reservationvo();///20210528그래준영아 객체를 비워줘야지.. 안그러면 update만 되잖아..
+                    String reservationdatetime=today+" "+requesthour.get(i)+":24:23";
+                    Timestamp timestamp = Timestamp.valueOf(reservationdatetime);
+                    System.out.println(timestamp+"time");
                     reservationvo2.setRequesthour(requesthour.get(i));
-                     reservationvo2.setCreated(reservationvo.getCreated());
-                     reservationvo2.setRemail(reservationvo.getRemail());
-                     reservationvo2.setRname(reservationvo.getRname());
-                     reservationvo2.setSeat(reservationvo.getSeat());
-                     reservationdao.save(reservationvo2);  
-                     historyvo historyvo= historyservice.inserthistory(reservationvo2);
-                     historyservice.inserthistory(historyvo);
+                    reservationvo2.setReservationdatetime(timestamp);
+                    reservationvo2.setCreated(reservationvo.getCreated());
+                    reservationvo2.setRemail(reservationvo.getRemail());
+                    reservationvo2.setRname(reservationvo.getRname());
+                    reservationvo2.setSeat(reservationvo.getSeat());
+                    reservationdao.save(reservationvo2);  
+                    historyvo historyvo= historyservice.inserthistory(reservationvo2);
+                    historyservice.inserthistory(historyvo);
                 }               
                 return yes;
             } catch (Exception e) {

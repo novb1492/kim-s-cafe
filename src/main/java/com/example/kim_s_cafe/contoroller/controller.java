@@ -98,7 +98,6 @@ public class controller {
         model.addAttribute("currentpage", currentpage);
         model.addAttribute("totalpages", totalpages);
         model.addAttribute("harray", historyservice.gethistory(email,currentpage,totalpages));
-        model.addAttribute("nowhour", reservationservice.gethour());
         model.addAttribute("array",array);
         model.addAttribute("arraysize", array.size());
         return "showreservationcepage";

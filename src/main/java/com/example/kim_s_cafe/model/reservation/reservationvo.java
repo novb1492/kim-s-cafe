@@ -8,10 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.CreationTimestamp;
-
 import lombok.Data;
+
+
 @Data
 @Table(name="reservation")
 @Entity
@@ -36,9 +36,11 @@ public class reservationvo {
     @CreationTimestamp
     private Timestamp created;
 
-    
-    @Column(name="requesthour",nullable = false)
+    @Column(name = "requesthour",nullable = false)
     private int requesthour;
+    
+    @Column(name="reservationdatetime",nullable = false)
+    private Timestamp reservationdatetime;
 
 	/*public reservationvo(String seat,String rname,String remail,int requesthour) {
 		super();

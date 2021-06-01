@@ -22,7 +22,7 @@ public class historyservice {
         
         historyvo historyvo=new historyvo();
         historyvo.setRid(reservationvo.getRid());
-        historyvo.setRequesthour(reservationvo.getRequesthour());
+        //historyvo.setRequesthour(reservationvo.getRequesthour());
         historyvo.setCreated(reservationvo.getCreated());
         historyvo.setRemail(reservationvo.getRemail());
         historyvo.setRname(reservationvo.getRname());
