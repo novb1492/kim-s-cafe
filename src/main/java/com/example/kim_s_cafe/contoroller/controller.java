@@ -8,15 +8,18 @@ import java.util.List;
 
 import com.example.kim_s_cafe.model.board.boardvo;
 import com.example.kim_s_cafe.model.comment.commentvo;
+import com.example.kim_s_cafe.model.history.historyvo;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.model.user.uservo;
 import com.example.kim_s_cafe.service.boardservice;
 import com.example.kim_s_cafe.service.commentservice;
 import com.example.kim_s_cafe.service.contentservice;
+import com.example.kim_s_cafe.service.historyservice;
 import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +44,8 @@ public class controller {
     private contentservice contentservice;
     @Autowired
     private commentservice commentservice;
+    @Autowired
+    private historyservice historyservice;
  
 
     @PostMapping("/auth/joinprocess")
@@ -87,10 +92,14 @@ public class controller {
         return "reservationpage";
     }
     @GetMapping("showreservationcepage")
-    public String showreservationcepage(Model model) {
+    public String showreservationcepage(Model model,@RequestParam(value="page", defaultValue = "1") int currentpage) {
         reservationservice.check24();
         String email=userservice.getemail();
-        
+        int totalpages=historyservice.counthistorybyemail(email);
+
+        model.addAttribute("currentpage", currentpage);
+        model.addAttribute("totalpages", totalpages);
+        model.addAttribute("harray", historyservice.gethistory(email,currentpage,totalpages));
         model.addAttribute("nowhour", reservationservice.gethour());
         model.addAttribute("array",reservationservice.findreservation(email));
         return "showreservationcepage";

@@ -20,7 +20,37 @@
             <div sec:authentication="name" ></div>
             <a href="/mypage">마이페이지</a>
             <a href="/logout">로그아웃</a>
-            
+    <h3>오늘 예약한 내역</h3>        
+        <table>				
+                <tr>
+                    <th>예약번호</th>
+                    <th>예약시간</th>
+                    <th>예약자리</th>
+                    <th>예약자이메일</th> 
+                    <th>예약일자</th>
+                </tr>
+                <tr th:each="array:${array}">
+                    <td >[[${array.getRid}]]</td>
+                    <td>[[${array.getRequesthour}]]시~[[${array.getRequesthour+1}]]시</td><!--오 연산도 된다20210528-->
+                    <td>[[${array.getSeat}]]</td>   
+                    <td >[[${array.getRemail}]]</td>
+                    <td>[[${array.getCreated}]]</td>
+                    <td>
+                        <div th:if="${array.getRequesthour>nowhour}">
+                            <form action="/reservationupdatepage" method="POST">
+                                <input type="hidden" class="rid" name="rid" th:value="${array.getRid}">
+                                <input type="hidden"  name="requesthour" th:value="${array.getRequesthour}">
+                                <input type="hidden"  name="seat" th:value="${array.getSeat}">
+                                <input type="hidden"  name="remail" th:value="${array.getRemail}">
+                                <input type="hidden"  name="created" th:value="${array.getCreated}">
+                                <input type="submit" value="예약변경"></form>
+                            </form>
+                            <input type="button" class="cancle" value="예약취소">
+                        </div>
+                    </td>
+                </tr>			     				     
+        </table>
+        <h3>전체 예약한 내역</h3>
         <table>				
             <tr>
                 <th>예약번호</th>
@@ -29,28 +59,30 @@
                 <th>예약자이메일</th> 
                 <th>예약일자</th>
             </tr>
-            <tr th:each="array:${array}">
+            <tr th:each="array:${harray}">
                 <td >[[${array.getRid}]]</td>
                 <td>[[${array.getRequesthour}]]시~[[${array.getRequesthour+1}]]시</td><!--오 연산도 된다20210528-->
                 <td>[[${array.getSeat}]]</td>   
                 <td >[[${array.getRemail}]]</td>
                 <td>[[${array.getCreated}]]</td>
-                <td>
-                    <div th:if="${array.getRequesthour>nowhour}">
-                        <form action="/reservationupdatepage" method="POST">
-                            <input type="hidden" class="rid" name="rid" th:value="${array.getRid}">
-                            <input type="hidden"  name="requesthour" th:value="${array.getRequesthour}">
-                            <input type="hidden"  name="seat" th:value="${array.getSeat}">
-                            <input type="hidden"  name="remail" th:value="${array.getRemail}">
-                            <input type="hidden"  name="created" th:value="${array.getCreated}">
-                            <input type="submit" value="예약변경"></form>
-                        </form>
-                        <input type="button" class="cancle" value="예약취소">
-                    </div>
-                </td>
-            </tr>				     
+            </tr>				     				     
         </table>
+        <div th:if="${currentpage<totalpages}">
+            <form action="/showreservationcepage"> 
+                <input type="hidden" name="page" th:value="${currentpage+1}">
+                <input type="submit" value="다음">
+            </form>
+        </div>
+        <div th:if="${currentpage>1}">
+            <form action="/showreservationcepage"> 
+                <input type="hidden" name="page" th:value="${currentpage-1}">
+                <input type="submit" value="이전">
+            </form>
+        </div>
+        <br>
+        [[${currentpage}]]/[[${totalpages}]]
     </div>
+
 <script>
 $(function(){
       $('.cancle').click(function(){
@@ -63,7 +95,7 @@ $(function(){
             success:function(data){
                 if(data==true){
                     alert('예약이 취소 되었습니다');
-                    location.href="/reservationcanclepage";
+                    location.href="/showreservationcepage";
                 }else{
                     alert('예약 취소에 문제가 생겼습니다 다시시도 바랍니다');
                 }

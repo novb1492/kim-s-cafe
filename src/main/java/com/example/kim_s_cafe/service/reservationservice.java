@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 import javax.transaction.Transactional;
 
+
 import com.example.kim_s_cafe.model.history.historyvo;
 import com.example.kim_s_cafe.model.reservation.reservationdao;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
@@ -25,6 +26,8 @@ public class reservationservice {
     private reservationdao reservationdao;
     @Autowired
     private historyservice historyservice;
+
+    
     
     @Transactional
     public boolean reservationupdate(reservationvo reservationvo) {
