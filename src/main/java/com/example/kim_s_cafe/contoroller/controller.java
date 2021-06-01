@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.example.kim_s_cafe.model.board.boardvo;
 import com.example.kim_s_cafe.model.comment.commentvo;
-import com.example.kim_s_cafe.model.history.historyvo;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.model.user.uservo;
 import com.example.kim_s_cafe.service.boardservice;
@@ -17,9 +16,7 @@ import com.example.kim_s_cafe.service.contentservice;
 import com.example.kim_s_cafe.service.historyservice;
 import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -96,12 +93,14 @@ public class controller {
         reservationservice.check24();
         String email=userservice.getemail();
         int totalpages=historyservice.counthistorybyemail(email);
-
+        List<reservationvo>array=reservationservice.findreservation(email);
+        model.addAttribute("checkdate",reservationservice.confirmdate(array));
         model.addAttribute("currentpage", currentpage);
         model.addAttribute("totalpages", totalpages);
         model.addAttribute("harray", historyservice.gethistory(email,currentpage,totalpages));
         model.addAttribute("nowhour", reservationservice.gethour());
-        model.addAttribute("array",reservationservice.findreservation(email));
+        model.addAttribute("array",array);
+        model.addAttribute("arraysize", array.size());
         return "showreservationcepage";
     }
     @PostMapping("reservationupdatepage")

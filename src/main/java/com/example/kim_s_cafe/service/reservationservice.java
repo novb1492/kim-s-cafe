@@ -26,9 +26,27 @@ public class reservationservice {
     private reservationdao reservationdao;
     @Autowired
     private historyservice historyservice;
+    @Autowired
+    private timestampservice timestampservice;
 
     
-    
+    public List<Boolean> confirmdate(List<reservationvo>array) {
+
+        if(array.size()>0){
+            List<Boolean>checkdate=new ArrayList<>();
+            for(int i=0;i<array.size();i++){
+                timestampservice.setdates(array.get(i).getCreated());
+                boolean yorn=timestampservice.checktoday();
+                if(yorn){
+                    checkdate.add(true);
+                }else{
+                    checkdate.add(false);
+                }
+            }
+            return checkdate;
+        }
+        return null;
+    }
     @Transactional
     public boolean reservationupdate(reservationvo reservationvo) {
         try {
