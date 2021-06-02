@@ -39,10 +39,13 @@ public class restcontroller {
     private commentservice commentservice;
     
     @PostMapping("/auth/comfirm")
-    public String checkemail(@RequestParam("email")String email) {
-        System.out.println("email");
-        String yesorno=userservice.checkemail(email);
-        return yesorno;
+    public boolean checkemail(@RequestParam("email")String email) {
+        System.out.println("email"+email);
+        boolean yorn=userservice.checkemail(email);
+        if(yorn){
+            return yes;
+        }
+        return no;
     }
     @PostMapping("updatepwdpageprocess")
     public String updatepwdpageprocess(@RequestParam("email")String email,@RequestParam("pwd")String pwd,@RequestParam("npwd")String npwd,@RequestParam("npwd2")String npwd2) {
@@ -68,8 +71,7 @@ public class restcontroller {
     @PostMapping("reservationconfrim")
     public List<Integer> reservationconfirm(@RequestParam("seat")String seat) {
         reservationservice.check24();
-        List<Integer>array=reservationservice.reservationconfirm(seat);
-        return array;
+        return reservationservice.reservationconfirm(seat);
     }
     @PostMapping("reservationprocess")
     public boolean reservationprocess(reservationvo reservationvo,@RequestParam(value = "requesthour[]")List<Integer> requesthour) { ///checkbox로 받을때 value = "파라미터이름[]" 과 List로만 해야한다 20210526

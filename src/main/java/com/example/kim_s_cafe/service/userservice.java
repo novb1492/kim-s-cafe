@@ -22,15 +22,15 @@ public class userservice {
     private security security;//@Autowired해주고 
     
 
-    public String checkemail(String email) {
+    public boolean checkemail(String email) {
 
         System.out.println(email+"중복검사");
         Optional<uservo> vo=userdao.findById(email);
         if(vo.isEmpty())///일단 학원가기전까지는 이방법이 제일 편리 한거같다 20200514
         {
-             return "yes";
+             return true;
         }
-     return "no";
+     return false;
     }
 
     public boolean insertmember(uservo uservo) {

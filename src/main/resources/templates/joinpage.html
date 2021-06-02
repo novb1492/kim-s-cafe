@@ -52,7 +52,7 @@
             },
             success:function(data){
               console.log(data);
-              if($.trim(data)=="yes")
+              if(data)
               {
                 $('#useremail').css("background-color","blue");
                 $('#emailcheck').html("");

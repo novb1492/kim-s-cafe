@@ -25,7 +25,7 @@ public class reservationservice {
     private final boolean yes=false;
     private final boolean no=true;
     private final byte opentime=6;
-    private final byte endtime=26;
+    private final byte endtime=24;
 
     @Autowired
     private reservationdao reservationdao;

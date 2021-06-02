@@ -126,12 +126,11 @@ public class controller {
         System.out.println("검색한 키워드 "+title);
         int totalpages=boardservice.getsearchboardscount(title);
         System.out.println("검색한 키워드 총페이지 "+totalpages);
-        List<boardvo>array=boardservice.getsearchboards(currentpage, title,totalpages);
         model.addAttribute("title", title);
         model.addAttribute("search", true);
         model.addAttribute("currentpage", currentpage);
         model.addAttribute("totalpage", totalpages);
-        model.addAttribute("array", array);
+        model.addAttribute("array", boardservice.getsearchboards(currentpage, title,totalpages));
         
         return "boardlist"; 
     }
@@ -141,13 +140,11 @@ public class controller {
         System.out.println("들어온 글번호"+bid);
         
         try {
-            boardvo boardvo= contentservice.getcontent(bid);
             int totalpages=commentservice.totalcommentcount(bid);
-            List<commentvo>array=commentservice.commentpagin(bid, currentpage, totalpages);
             model.addAttribute("currentpage", currentpage);
             model.addAttribute("totalpage", totalpages);
-            model.addAttribute("boardvo", boardvo);
-            model.addAttribute("array", array);
+            model.addAttribute("boardvo", contentservice.getcontent(bid));
+            model.addAttribute("array", commentservice.commentpagin(bid, currentpage, totalpages));
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -169,12 +166,10 @@ public class controller {
 
         System.out.println("삭제하는 댓글의 게시글번호"+bid+"삭제하는 댓글번호"+cid);
         commentservice.deletecommentbycid(cid);
-        boardvo boardvo=contentservice.getcontent(bid);
         int totalpages=commentservice.totalcommentcount(bid);
-        List<commentvo>array=commentservice.commentpagin(bid, currentpage, totalpages);
-        model.addAttribute("boardvo", boardvo);
+        model.addAttribute("boardvo", contentservice.getcontent(bid));
         model.addAttribute("bid", bid);
-        model.addAttribute("array", array);
+        model.addAttribute("array", commentservice.commentpagin(bid, currentpage, totalpages));
         model.addAttribute("totalpage", totalpages);
         model.addAttribute("currentpage", currentpage);
         return "content";

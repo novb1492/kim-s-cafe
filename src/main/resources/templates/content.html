@@ -43,7 +43,7 @@
                 내용    <input type="text"  class="commentinput" th:value="${comment.getComment}" disabled></input>
                 <div th:if="${#authentication.name==comment.getEmail}">
                     <input type="hidden" class="cid" th:value="${comment.getCid}">
-                    <input type="button"  value="수정">
+                    <input type="button" class="updatecomment" value="수정">
                     <form action="/deletecomment" method="POST">
                         <input type="hidden" name="bid" th:value="${comment.getBid}">
                         <input type="hidden" name="cid" th:value="${comment.getCid}">
@@ -73,6 +73,9 @@
     
 $(function()
 {
+    $('.updatecomment').click(function(){
+        $('.commentinput').removeAttr('disabled');
+    })
     $('.replybutton').click(function(){
         $(this).append("<br><input type='text' class='reply' name='reply' placeholder='답글을 입력해주세요'><br>");
         $(this).append("<input type='button' class='replyinsertbutton'  value='완료'>");
