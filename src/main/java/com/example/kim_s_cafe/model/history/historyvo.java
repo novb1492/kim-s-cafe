@@ -19,15 +19,15 @@ import lombok.Data;
 @Entity
 public class historyvo {
     
-   
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hid",nullable = false)
     private int hid;
 
     @Column(name="seat",nullable = false)
     private String seat;
     
-    @Id
+
     @Column(name="rid",nullable = false)
     private int rid;                                  
 
@@ -43,5 +43,8 @@ public class historyvo {
 
     @Column(name="requesthour",nullable = false)
     private int requesthour;
+
+    @Column(name = "reservationdate",nullable = false)
+    private Timestamp reservationdate;
 
 }

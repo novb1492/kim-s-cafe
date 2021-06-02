@@ -1,9 +1,9 @@
 package com.example.kim_s_cafe.model.history;
 
 
-
+import org.springframework.data.jpa.repository.Modifying;
 import java.util.List;
-
+import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +18,9 @@ public interface historydao extends JpaRepository<historyvo,Integer> {
 
     @Query(value = "select *from history where reamil=?1 order by hid",nativeQuery = true)
     List<historyvo>gethistorybyemail2(String email);
+
+    @Modifying 
+    @Transactional
+    @Query(value = "delete from history h where h.rid=?1",nativeQuery = true)
+    void deletebyrid(int rid);
 }

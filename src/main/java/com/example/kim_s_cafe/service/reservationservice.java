@@ -40,7 +40,7 @@ public class reservationservice {
         if(array.size()>0){
             List<Boolean>checkdate=new ArrayList<>();
             for(int i=0;i<array.size();i++){
-                timestampservice.setdates(array.get(i).getCreated());
+                timestampservice.setdates(array.get(i).getReservationdatetime());
                 boolean yorn=timestampservice.checktoday();
                 if(yorn){
                     checkdate.add(true);
@@ -56,9 +56,12 @@ public class reservationservice {
     public boolean reservationupdate(reservationvo reservationvo) {
         try {
             reservationvo.setSeat(reservationvo.getSeat());
-            //reservationvo.setRequesthour(reservationvo.getRequesthour());
+            reservationvo.setRequesthour(reservationvo.getRequesthour());
+            Timestamp timestamp=gettimestamp(reservationvo.getRequesthour());
+            reservationvo.setReservationdatetime(timestamp);
             reservationvo.setCreated(reservationvo.getCreated());
             reservationdao.save(reservationvo);
+            historyservice.updatehistory(reservationvo);
             return yes;
         } catch (Exception e) {
             e.printStackTrace();
@@ -135,16 +138,12 @@ public class reservationservice {
         return null;
     }
     public boolean insertreservation(reservationvo reservationvo,List<Integer> requesthour) {
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
-        String today = sdf.format(date);
+        
             try {  
                 for(int i=0;i<requesthour.size();i++){
                     reservationvo reservationvo2=new reservationvo();///20210528그래준영아 객체를 비워줘야지.. 안그러면 update만 되잖아..
-                    String reservationdatetime=today+" "+requesthour.get(i)+":24:23";
-                    Timestamp timestamp = Timestamp.valueOf(reservationdatetime);
-                    System.out.println(timestamp+"time");
                     reservationvo2.setRequesthour(requesthour.get(i));
+                    Timestamp timestamp=gettimestamp(requesthour.get(i));
                     reservationvo2.setReservationdatetime(timestamp);
                     reservationvo2.setCreated(reservationvo.getCreated());
                     reservationvo2.setRemail(reservationvo.getRemail());
@@ -174,6 +173,15 @@ public class reservationservice {
 	    int hour = cal.get(Calendar.HOUR_OF_DAY);
         System.out.println(hour+"현재시간");
         return hour;  
+    }
+    public Timestamp gettimestamp(int requesthour){
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+        String today = sdf.format(date);
+        String reservationdatetime=today+" "+requesthour+":0:0";
+
+        return Timestamp.valueOf(reservationdatetime);
+
     }
  
     

@@ -9,6 +9,7 @@ import com.example.kim_s_cafe.model.reservation.reservationvo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class historyservice {
@@ -22,12 +23,31 @@ public class historyservice {
         
         historyvo historyvo=new historyvo();
         historyvo.setRid(reservationvo.getRid());
-        //historyvo.setRequesthour(reservationvo.getRequesthour());
+        historyvo.setRequesthour(reservationvo.getRequesthour());
+        historyvo.setReservationdate(reservationvo.getReservationdatetime());
         historyvo.setCreated(reservationvo.getCreated());
         historyvo.setRemail(reservationvo.getRemail());
         historyvo.setRname(reservationvo.getRname());
         historyvo.setSeat(reservationvo.getSeat());
         return historyvo;
+    }
+    
+    @Transactional
+    public void updatehistory(reservationvo reservationvo)
+    {
+        try {
+        historyvo historyvo=new historyvo();
+        historyvo.setRid(reservationvo.getRid());
+        historyvo.setRequesthour(reservationvo.getRequesthour());
+        historyvo.setReservationdate(reservationvo.getReservationdatetime());
+        historyvo.setCreated(reservationvo.getCreated());
+        historyvo.setRemail(reservationvo.getRemail());
+        historyvo.setRname(reservationvo.getRname());
+        historyvo.setSeat(reservationvo.getSeat());
+            historydao.save(historyvo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public void inserthistory(historyvo historyvo) {
         try {
@@ -40,7 +60,7 @@ public class historyservice {
     public void deletehistory(int rid) {
 
         try {
-            historydao.deleteById(rid);
+            historydao.deletebyrid(rid);
         } catch (Exception e) {
             e.printStackTrace();
         }
