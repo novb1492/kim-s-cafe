@@ -2,6 +2,8 @@ package com.example.kim_s_cafe.model.history;
 
 
 import org.springframework.data.jpa.repository.Modifying;
+
+import java.sql.Timestamp;
 import java.util.List;
 import javax.transaction.Transactional;
 
@@ -23,4 +25,9 @@ public interface historydao extends JpaRepository<historyvo,Integer> {
     @Transactional
     @Query(value = "delete from history h where h.rid=?1",nativeQuery = true)
     void deletebyrid(int rid);
+
+    @Modifying 
+    @Transactional
+    @Query(value = "update history h set h.requesthour=?2,h.seat=?3,h.reservationdate=?4,h.created=?5 where h.rid=?1",nativeQuery = true)///20210603jpa update쿼리문쓰는법!
+    void updatebyrid(int rid,int requesthour,String seat,Timestamp reservationdate,Timestamp created);
 }

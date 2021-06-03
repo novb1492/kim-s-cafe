@@ -174,7 +174,7 @@ public class reservationservice {
         System.out.println(hour+"현재시간");
         return hour;  
     }
-    public Timestamp gettimestamp(int requesthour){
+    private Timestamp gettimestamp(int requesthour){
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
         String today = sdf.format(date);

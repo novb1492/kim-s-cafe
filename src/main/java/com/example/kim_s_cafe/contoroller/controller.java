@@ -7,7 +7,6 @@ import java.util.List;
 
 
 import com.example.kim_s_cafe.model.board.boardvo;
-import com.example.kim_s_cafe.model.comment.commentvo;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.model.user.uservo;
 import com.example.kim_s_cafe.service.boardservice;
@@ -100,7 +99,6 @@ public class controller {
         model.addAttribute("harray", historyservice.gethistory(email,currentpage,totalpages));
         model.addAttribute("array",array);
         model.addAttribute("arraysize", array.size());
-        System.out.println(array.size()+"예약내역개수");
         return "showreservationcepage";
     }
     @PostMapping("reservationupdatepage")

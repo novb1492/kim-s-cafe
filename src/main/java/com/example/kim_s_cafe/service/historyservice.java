@@ -36,15 +36,8 @@ public class historyservice {
     public void updatehistory(reservationvo reservationvo)
     {
         try {
-        historyvo historyvo=new historyvo();
-        historyvo.setRid(reservationvo.getRid());
-        historyvo.setRequesthour(reservationvo.getRequesthour());
-        historyvo.setReservationdate(reservationvo.getReservationdatetime());
-        historyvo.setCreated(reservationvo.getCreated());
-        historyvo.setRemail(reservationvo.getRemail());
-        historyvo.setRname(reservationvo.getRname());
-        historyvo.setSeat(reservationvo.getSeat());
-            historydao.save(historyvo);
+    
+            historydao.updatebyrid(reservationvo.getRid(),reservationvo.getRequesthour(),reservationvo.getSeat(),reservationvo.getReservationdatetime(),reservationvo.getCreated());
         } catch (Exception e) {
             e.printStackTrace();
         }
