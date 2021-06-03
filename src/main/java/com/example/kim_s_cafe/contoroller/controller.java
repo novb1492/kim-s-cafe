@@ -100,6 +100,7 @@ public class controller {
         model.addAttribute("harray", historyservice.gethistory(email,currentpage,totalpages));
         model.addAttribute("array",array);
         model.addAttribute("arraysize", array.size());
+        System.out.println(array.size()+"예약내역개수");
         return "showreservationcepage";
     }
     @PostMapping("reservationupdatepage")
