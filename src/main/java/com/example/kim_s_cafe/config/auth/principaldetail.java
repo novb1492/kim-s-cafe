@@ -7,6 +7,9 @@ import com.example.kim_s_cafe.model.user.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.Data;
+
+@Data
 public class principaldetail implements UserDetails{
 
     private uservo uservo;
@@ -15,6 +18,8 @@ public class principaldetail implements UserDetails{
     {
         this.uservo=uservo;
     }
+
+     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

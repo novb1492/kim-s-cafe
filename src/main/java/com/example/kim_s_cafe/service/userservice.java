@@ -3,10 +3,12 @@ package com.example.kim_s_cafe.service;
 import java.util.Optional;
 
 import com.example.kim_s_cafe.config.security;
+import com.example.kim_s_cafe.config.auth.principaldetail;
 import com.example.kim_s_cafe.model.user.userdao;
 import com.example.kim_s_cafe.model.user.uservo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -47,12 +49,13 @@ public class userservice {
         
         return false;
     }
-    public String getemail() {
+
+    /*public String getemail() {
         Object principal=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserDetails details=(UserDetails)principal;
         System.out.println(details.getUsername()+"조회이메일");
         return details.getUsername();
-    }
+    }*///공부하기 전에 쓰던방식
     public uservo getinfor(String email) {
         uservo uservo=userdao.findById(email).orElseThrow();
         System.out.println(uservo.getName()+"다녀왔니");

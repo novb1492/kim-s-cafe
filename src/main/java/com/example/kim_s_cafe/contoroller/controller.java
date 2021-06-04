@@ -5,7 +5,7 @@ package com.example.kim_s_cafe.contoroller;
 
 import java.util.List;
 
-
+import com.example.kim_s_cafe.config.auth.principaldetail;
 import com.example.kim_s_cafe.model.board.boardvo;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
 import com.example.kim_s_cafe.model.user.uservo;
@@ -16,6 +16,7 @@ import com.example.kim_s_cafe.service.historyservice;
 import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,9 +73,9 @@ public class controller {
         
     }
     @GetMapping("mypage")
-    public String mypage(Model model) {
+    public String mypage(Model model,@AuthenticationPrincipal principaldetail principaldetail) {
     
-        String email=userservice.getemail();
+        String email=principaldetail.getUservo().getEmail();
         model.addAttribute("uservo", userservice.getinfor(email));
         return "mypage";
     }
@@ -88,9 +89,9 @@ public class controller {
         return "reservationpage";
     }
     @GetMapping("showreservationcepage")
-    public String showreservationcepage(Model model,@RequestParam(value="page", defaultValue = "1") int currentpage) {
+    public String showreservationcepage(Model model,@RequestParam(value="page", defaultValue = "1") int currentpage,@AuthenticationPrincipal principaldetail principaldetail) {
         reservationservice.check24();
-        String email=userservice.getemail();
+        String email=principaldetail.getUservo().getEmail();
         int totalpages=historyservice.counthistorybyemail(email);
         List<reservationvo>array=reservationservice.findreservation(email);
         model.addAttribute("checkdate",reservationservice.confirmdate(array));

@@ -3,10 +3,9 @@ package com.example.kim_s_cafe.config;
 
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,18 +16,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity/////필터를 추가해준다
 @EnableGlobalMethodSecurity(prePostEnabled = true)//특정 주소 접근을 미리체크 한다  이3개는 셋트임 20210520
 public class security extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private com.example.kim_s_cafe.config.auth.principalservice principalservice;
+ 
 
     @Bean
     public BCryptPasswordEncoder encoderpwd() {
 
         return new BCryptPasswordEncoder();
     }
-    @Override////검사하는곳
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(principalservice).passwordEncoder(encoderpwd());///암호화 해준애가 얘라고 알려줘야함 그러면 비밀번호는 알아서 처리함
-    }                                                                           ///principalservice에서 아이디 일치 검사해주고 시큐리티 세션애 넣어줌 내가아는 세션아님
+   
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
