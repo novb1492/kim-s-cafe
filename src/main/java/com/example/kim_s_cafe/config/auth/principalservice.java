@@ -18,7 +18,7 @@ public class principalservice implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
        try {
-        uservo uservo=userdao.findById(username).orElseThrow();
+        uservo uservo=userdao.findByEmail(username);
         return new principaldetail(uservo);
        } catch (Exception e) {
            e.printStackTrace();
