@@ -93,6 +93,7 @@
             }
             })    
         })
+     
         $('#button').click(function(){
             $('input[name="requesthour"]:checkbox:checked').each(function(){///check박스 값 가져오려면 name값 지정해 넣어주면돤다20210526
                 requesthour.push($(this).val());
@@ -125,6 +126,7 @@
     function out(){
         $('.modal').fadeOut();
         $( '#requesthourdiv' ).html(" ");///이게 없으면 체크박스가 계속 생긴다 20210528
+        requesthour=[];////////////////////이거 없으면 체크박스 초기화 안됨
     }
 </script>
 </body>

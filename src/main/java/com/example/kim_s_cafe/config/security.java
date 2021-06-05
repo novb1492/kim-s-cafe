@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 //구글로그인이 완료된 후처리를 해줘야함
             //1.코드받기(인증)2.엑세스토큰받기(권한생성)
@@ -39,6 +40,11 @@ public class security extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder encoderpwd() {
 
         return new BCryptPasswordEncoder();
+    }
+    
+    @Bean
+    SimpleUrlAuthenticationSuccessHandler successHandler() {
+        return new SimpleUrlAuthenticationSuccessHandler("/auth/index");
     }
    
 
