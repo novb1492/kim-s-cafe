@@ -22,86 +22,69 @@
     <input type="button" id="button" value="완료">
 
     <script>
-   $(function(){
-       
-    var check="false",check2="false";///왜 불이 안되는건지 모르겠다
-
-    $('#content').on({
-        keyup:function(){
-        $('#errorcontent').html('입력한 글자 수'+$('#content').val().length,check);
-        check2=checkcondition($('#content'),0,1000,check);    
-        
-    },
-    click:function()
-    {
-        check2=checkcondition($('#content'),0,1000,check);
-    }
-    })
-    $('#title').on({
-        keyup:function(){
-            check=checkcondition($('#title'),0,30,check);
-        },
-        click:function()
-        {
-            check=checkcondition($('#title'),0,30,check);
+        $(function(){
+         $('#content').on({
+             keyup:function(){
+             $('#errorcontent').html('입력한 글자 수'+$('#content').val().length);
+             checkcondition($('#content'),0,1000);    
+             
+         },
+         click:function(){
+             checkcondition($('#content'),0,1000);
+         }
+         })
+         $('#title').on({
+             keyup:function(){
+                 check=checkcondition($('#title'),0,30);
+             },
+             click:function()
+             {
+                 check=checkcondition($('#title'),0,30);
+             }
+         })
+         $('#button').click(function(){
+             if($('#content').val().length<=1000&&$('#content').val().length>0&&$('#title').val().length<=30&&$('#title').val().length>0)
+             {
+                $.ajax({
+                 type:"post",
+                 url:"writearticleprocess",
+                 data:{
+                   "title":$('#title').val(),
+                   "content":$('#content').val(),
+                   "email":$('#email').val(),
+                 },
+                 success:function(data){
+                     if(data){
+                     location.href="/auth/boardlist";
+                     }
+                     else{
+                         alert('문제가 생겼습니다');}       
+                 }       
+                })
+             }
+             else{
+                 
+                 alert('빈칸이 있거나 글자수가 초과합니다');
+             }
+         })
+        })
+        function checkcondition(data,min,max)
+        {        
+     
+         if(data.val().length==min){
+                 $('#errorcontent').html("입력된 글자가 없습니다");
+                 data.css('background-color','pink');
+             }else if(data.val().length>max){
+                 data.css('background-color','pink');
+                 if(max==1000){
+                     alert('글내용 글자수는 최대 1000자입니다');
+                 }else{
+                     alert('글제목 글자수는 최대 30자입니다');
+                 }
+             }else{
+                 data.css('background-color','white');
+             }
         }
-    })
-    $('#button').click(function(){
-        if(check2=="true"&&check=="true")
-        {
-           $.ajax({
-            type:"post",
-            url:"writearticleprocess",
-            data:{
-              "title":$('#title').val(),
-              "content":$('#content').val(),
-              "email":$('#email').val(),
-            },
-            success:function(data){
-                if(data)
-                {
-                location.href="/auth/boardlist";
-                }
-                else
-                {alert('문제가 생겼습니다');}       
-            }       
-           })
-        }
-        else{
-            
-            alert('빈칸이 있거나 글자수가 초과합니다');
-        }
-    })
-   })
-   function checkcondition(data,min,max)
-   {        
-
-    if(data.val().length==min)
-        {
-            $('#errorcontent').html("입력된 글자가 없습니다");
-            data.css('background-color','pink');
-            return "false";
-        }
-        else if(data.val().length>max)
-        {
-            
-            data.css('background-color','pink');
-            if(max==1000)
-            {
-                alert('글내용 글자수는 최대 1000자입니다');
-            }
-            else
-            {
-                alert('글제목 글자수는 최대 30자입니다');
-            }
-            return "false";
-        }
-        else
-        {
-            data.css('background-color','white');
-            return "true";
-        }
-   }
-    </script>
+         </script>
 </body>
 </html>
