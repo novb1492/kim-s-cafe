@@ -157,9 +157,8 @@ public class controller {
         if(vo!=null){
             model.addAttribute("boardvo", vo);
             return "updatecontent";
-        }else{
-            return "updatecontent";
         }
+         return "updatecontent";  
     }
     @PostMapping("deletecomment")
     public String deletecomment(@RequestParam("bid")int bid,@RequestParam("cid")int cid,Model model,@RequestParam(value="page", defaultValue = "1") int currentpage ) {

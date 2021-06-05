@@ -22,8 +22,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class reservationservice {
 
-    private final boolean yes=false;
-    private final boolean no=true;
+    private final boolean yes=true;
+    private final boolean no=false;
     private final byte opentime=6;
     private final byte endtime=24;
 
