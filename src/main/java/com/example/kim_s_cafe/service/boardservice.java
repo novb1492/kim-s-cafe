@@ -78,7 +78,7 @@ public class boardservice {
             }else{
                 array=boarddao.findsearch2(title);
             }
-            System.out.println("검색완료"+array.get(0).getBid());
+            System.out.println("검색완료 첫번째 게시글번호"+array.get(0).getBid());
         } catch (Exception e) {
            e.printStackTrace();
         }

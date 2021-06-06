@@ -14,7 +14,6 @@ public class EmailUtilImpl  {
     @Autowired
     private JavaMailSender sender;//자체적으로 제공해주는 기능
 
-
     public void sendEmail(String toAddress, String subject, String body) {
        System.out.println(toAddress+"보낼주소");
         MimeMessage message = sender.createMimeMessage();

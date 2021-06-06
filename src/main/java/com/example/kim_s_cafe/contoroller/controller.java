@@ -68,7 +68,6 @@ public class controller {
     }
     @GetMapping("/auth/index")
     public String index() {
-
         return "index";
         
     }
@@ -173,5 +172,6 @@ public class controller {
         model.addAttribute("currentpage", currentpage);
         return "content";
     }
+    
 
 }

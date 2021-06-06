@@ -29,7 +29,32 @@ public class userservice {
         }
      return false;
     }
+    public boolean checkrandomnumber(String email,int randomnumber) {
+        try {
+            int dbnumber=userdao.findemailconfirmnumberbyemail(email);
+            System.out.println("dbnum"+dbnumber+"rand"+randomnumber);
+            if(dbnumber==randomnumber){
 
+                userdao.updateemailcheck("true", email);
+                return true;
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public boolean sendrandomnumber(String email,int randomnumber) {
+
+        try {
+            System.out.println("랜덤넘버"+randomnumber);
+            userdao.update(randomnumber, email);
+            return true;
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+        return false;
+    }
     public boolean insertmember(uservo uservo) {
 
         try {    
@@ -37,6 +62,8 @@ public class userservice {
         String hashpwd=encoder.encode(uservo.getPwd());//자체함수 소환해서 해쉬해주고
         uservo.setPwd(hashpwd);//셋해서
         uservo.setRole("ROLE_USER");
+        uservo.setEmailcheck("false");
+        uservo.setEmailconfirmnumber(0);
         userdao.save(uservo);///넣어준다!
         return true;
         } catch (Exception e) {

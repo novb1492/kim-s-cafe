@@ -16,7 +16,11 @@ import lombok.Data;
 @Entity
 public class uservo {
     
-   
+    @Id
+    @Column(name="id",nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)///테이블은 여기서 만들고 mysql에서 오토인크리먼트하면된다
+    private int id;
+
     @Column(name="email",length = 30,unique=true,nullable = false)
     private String email;
 
@@ -26,10 +30,6 @@ public class uservo {
     @Column(name="name",length = 20,nullable = false)
     private String name;
 
-    @Id
-    @Column(name="id",nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)///테이블은 여기서 만들고 mysql에서 오토인크리먼트하면된다
-    private int id;
 
     @Column(name="created")
     @CreationTimestamp  
@@ -43,4 +43,10 @@ public class uservo {
     
     @Column(name="providerid")
     private String providerid;
+    
+    @Column(name="emailcheck")
+    private String emailcheck;
+    
+    @Column(name="emailconfirmnumber")
+    private int emailconfirmnumber;
 }

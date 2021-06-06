@@ -10,6 +10,7 @@ import com.example.kim_s_cafe.email.EmailUtilImpl;
 import com.example.kim_s_cafe.model.board.boardvo;
 import com.example.kim_s_cafe.model.comment.commentvo;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
+import com.example.kim_s_cafe.model.user.uservo;
 import com.example.kim_s_cafe.service.boardservice;
 import com.example.kim_s_cafe.service.commentservice;
 import com.example.kim_s_cafe.service.contentservice;
@@ -114,11 +115,19 @@ public class restcontroller {
         return false;
         
     }
-    @GetMapping("/auth/email")
-    public String email() {
-        System.out.println("email전송");
-        emailUtilImpl.sendEmail("novb1492@naver.com", "스프링을 이용한 메일 전송", "랜덤번호는"+123+"입니다");
+    @PostMapping("email")
+    public String email(@RequestParam("email")String email) {
+        System.out.println("email전송"+email);
+        int randomnumber=8795;
+        userservice.sendrandomnumber(email,randomnumber);
+        emailUtilImpl.sendEmail("novb1492@naver.com", "스프링을 이용한 메일 전송", "인증번호는"+randomnumber+"입니다");
         return "email";
+    }
+    @PostMapping("emailpro")
+    public String emailpro(@RequestParam("email")String email,@RequestParam("randomnumber")int randomnumber) {
+        System.out.println("인증처리중"+email+randomnumber);
+        userservice.checkrandomnumber(email, randomnumber);
+        return "mypage";
     }
   
     
