@@ -91,9 +91,8 @@ public class reservationservice {
     }
 
     public void log(reservationvo reservationvo,List<Integer> requesthour) {
-            for(int i=0;i<requesthour.size();i++)
-            {
-                System.out.println("예약을 시도하는시간"+requesthour.get(i));  
+            for(int i=0;i<requesthour.size();i++){
+            System.out.println("예약을 시도하는시간"+requesthour.get(i));  
             }
             System.out.println("예약을 시도 하는 자리"+reservationvo.getSeat());
             System.out.println("예약을 시도하는이메일 "+reservationvo.getRemail());

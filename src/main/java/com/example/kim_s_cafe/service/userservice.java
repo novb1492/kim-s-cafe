@@ -13,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class userservice {
     
+    private final boolean yes=true;
+    private final boolean no=false;
+
     @Autowired
     private userdao userdao; 
     @Autowired
@@ -25,9 +28,9 @@ public class userservice {
        uservo vo=userdao.findByEmail(email);
         if(vo==null)///일단 학원가기전까지는 이방법이 제일 편리 한거같다 20200514
         {
-             return true;
+             return yes;
         }
-     return false;
+     return no;
     }
     public boolean checkrandomnumber(String email,int randomnumber) {
         try {
@@ -36,24 +39,24 @@ public class userservice {
             if(dbnumber==randomnumber){
 
                 userdao.updateemailcheck("true", email);
-                return true;
+                return yes;
             }
             
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return no;
     }
     public boolean sendrandomnumber(String email,int randomnumber) {
 
         try {
             System.out.println("랜덤넘버"+randomnumber);
             userdao.update(randomnumber, email);
-            return true;
+            return yes;
         } catch (Exception e) {
            e.printStackTrace();
         }
-        return false;
+        return no;
     }
     public boolean insertmember(uservo uservo) {
 
@@ -65,12 +68,12 @@ public class userservice {
         uservo.setEmailcheck("false");
         uservo.setEmailconfirmnumber(0);
         userdao.save(uservo);///넣어준다!
-        return true;
+        return yes;
         } catch (Exception e) {
             e.printStackTrace();
         }
         
-        return false;
+        return no;
     }
 
     /*public String getemail() {
@@ -88,11 +91,10 @@ public class userservice {
     {
         BCryptPasswordEncoder bCryptPasswordEncoder=security.encoderpwd();
         String dbpwd=userdao.getpwd(email);
-        if(bCryptPasswordEncoder.matches(pwd, dbpwd))
-        {
-            return true;
+        if(bCryptPasswordEncoder.matches(pwd, dbpwd)){
+            return yes;
         }
-        return false;
+        return no;
     }
     @Transactional
     public boolean updatepwd(String email,String pwd) {
@@ -105,7 +107,7 @@ public class userservice {
         } catch (Exception e) {
            e.printStackTrace();
         }
-        return true;
+        return yes;
     }
 
 }

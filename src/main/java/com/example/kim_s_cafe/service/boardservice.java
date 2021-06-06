@@ -55,8 +55,7 @@ public class boardservice {
         try {
             int count=boarddao.findallcountbytitle(title);
             totalpages=count/pagesize;
-            if(count%pagesize>0)
-            {
+            if(count%pagesize>0){
                 totalpages++;
             }
             return totalpages;

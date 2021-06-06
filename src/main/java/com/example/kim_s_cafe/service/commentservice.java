@@ -33,11 +33,12 @@ public class commentservice {
                     currentpage=0;
                     totalpages=0;
                 } 
+                return array;
        } catch (Exception e) {
            e.printStackTrace();
        }
      
-        return array;
+        return null;
     }
     public int totalcommentcount(int bid) {
 
@@ -46,7 +47,6 @@ public class commentservice {
         if(count%pagesize>0){
             totalpages++;
         }
-
         System.out.println(bid+"글의 총 댓글"+count);
         System.out.println("댓글총페이지"+totalpages);
         return totalpages;
