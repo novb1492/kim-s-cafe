@@ -6,7 +6,7 @@ package com.example.kim_s_cafe.contoroller;
 
 
 import java.util.List;
-
+import com.example.kim_s_cafe.email.EmailUtilImpl;
 import com.example.kim_s_cafe.model.board.boardvo;
 import com.example.kim_s_cafe.model.comment.commentvo;
 import com.example.kim_s_cafe.model.reservation.reservationvo;
@@ -15,8 +15,8 @@ import com.example.kim_s_cafe.service.commentservice;
 import com.example.kim_s_cafe.service.contentservice;
 import com.example.kim_s_cafe.service.reservationservice;
 import com.example.kim_s_cafe.service.userservice;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +35,8 @@ public class restcontroller {
     private contentservice contentservice;
     @Autowired
     private commentservice commentservice;
+    @Autowired
+    private EmailUtilImpl emailUtilImpl;
     
     @PostMapping("/auth/comfirm")
     public boolean checkemail(@RequestParam("email")String email) {
@@ -111,6 +113,12 @@ public class restcontroller {
         }
         return false;
         
+    }
+    @GetMapping("/auth/email")
+    public String email() {
+        System.out.println("email전송");
+        emailUtilImpl.sendEmail("novb1492@naver.com", "스프링을 이용한 메일 전송", "랜덤번호는"+123+"입니다");
+        return "email";
     }
   
     
